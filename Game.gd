@@ -10,10 +10,9 @@ func reset():
 		$CurrentLevel.remove_child(level)
 		level.queue_free()
 	
-	print(str(first_level))
 	var level = first_level.instance()
 	$CurrentLevel.add_child(level)
-	level.get_node("Player").connect("die", self, "__on_Player_die")
+	level.get_node("Player").connect("death", self, "__on_Player_die")
 
 func __on_Player_die():
 	reset()

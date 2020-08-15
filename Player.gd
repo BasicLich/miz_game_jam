@@ -1,5 +1,10 @@
 extends KinematicBody2D
 
+signal death
+signal hurt(damage, health)
+
+export var max_health := 3
+export var health : int = max_health
 export var speed := 100
 export var gravity := 20
 export var max_fall_speed := 500
@@ -36,3 +41,9 @@ func _physics_process(delta):
 		velocity = move_and_slide_with_snap(velocity, Vector2(0, 3), Vector2.UP)
 	else:		
 		velocity = move_and_slide(velocity, Vector2.UP)
+
+func hit(damage):
+	health -= damage
+	emit_signal("hurt", damage, health)
+	if health <= 0:
+		emit_signal("death")
