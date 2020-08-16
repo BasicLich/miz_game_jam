@@ -402,19 +402,17 @@ texture = ExtResource( 3 )
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 4 )
-volume_db = -35.0
+volume_db = -10.0
 
 [node name="Jump" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 6 )
-volume_db = -25.0
+volume_db = -10.0
 
 [node name="Land" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 5 )
-volume_db = -20.0
 
 [node name="Die" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 7 )
-volume_db = -10.0
 
 [node name="Spawn" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 8 )
@@ -422,6 +420,5 @@ volume_db = -10.0
 
 [node name="Hurt" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 9 )
-volume_db = -10.0
 [connection signal="timeout" from="Knockback" to="." method="_on_Knockback_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
