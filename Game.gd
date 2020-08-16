@@ -30,22 +30,21 @@ func reset():
 		heart.play("empty")
 		$HUD/MarginContainer/HealthBar.add_child(heart)
 	
-	refresh_health()
+	refresh_health(player.health)
 
-func refresh_health():
+func refresh_health(health):
 	if $HUD/MarginContainer/HealthBar.get_child_count() > 0:
 		for child in $HUD/MarginContainer/HealthBar.get_children():
 			child.play("empty")
 		
-		for i in range(0, floor(player.health / 2.0)):
+		for i in range(0, floor(health / 2.0)):
 			$HUD/MarginContainer/HealthBar.get_child(i).play("full")
 		
-		if player.health % 2 != 0:
-			$HUD/MarginContainer/HealthBar.get_child(floor(player.health/2.0)).play("half")
+		if health % 2 != 0:
+			$HUD/MarginContainer/HealthBar.get_child(floor(health/2.0)).play("half")
 
 func __on_Player_die():
 	call_deferred("reset")
 
 func __on_Player_hurt(damage, health):
-	if health > 0:
-		refresh_health()
+	refresh_health(health)

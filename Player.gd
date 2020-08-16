@@ -3,7 +3,7 @@ extends KinematicBody2D
 signal death
 signal hurt(damage, health)
 
-export var max_health := 3
+export var max_health := 6
 export var health : int = max_health
 export var speed := 100
 export var gravity := 20
@@ -63,6 +63,8 @@ func _physics_process(delta):
 
 func hit(damage, from):
 	health -= damage
+	if health < 0: 
+		health = 0
 	emit_signal("hurt", damage, health)
 	if health <= 0:
 		dying = true
