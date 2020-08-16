@@ -44,7 +44,8 @@ func refresh_health():
 			$HUD/MarginContainer/HealthBar.get_child(floor(player.health/2.0)).play("half")
 
 func __on_Player_die():
-	reset()
+	call_deferred("reset")
 
 func __on_Player_hurt(damage, health):
-	refresh_health()
+	if health > 0:
+		refresh_health()
