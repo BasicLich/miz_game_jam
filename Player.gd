@@ -12,11 +12,16 @@ export var jump_impulse := 300
 
 var velocity := Vector2.ZERO
 var stunned := false
+var loading := true
+var dying := false
 
 func _ready():
-	$AnimatedSprite.play("default")
+	$AnimationPlayer.play("Spawn")
 
 func _physics_process(delta):
+	if loading or dying:
+		return
+	
 	var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var jump = Input.is_action_just_pressed("jump") and $GroundCheck.is_colliding()
 	
@@ -27,17 +32,23 @@ func _physics_process(delta):
 	
 	if stunned:
 		$AnimatedSprite.play("hurt")
+		$SFX/Hurt.play()
+		$AnimationPlayer.stop()
 	elif not is_on_floor():
 		$AnimatedSprite.play("fall")
+		$AnimationPlayer.stop()
 	elif direction == 0:
 		$AnimatedSprite.play("default")
+		$AnimationPlayer.stop()
 	else:
 		$AnimatedSprite.play("run")
+		$AnimationPlayer.play("Walking")
 	
 	if not stunned:
 		velocity.x = direction * speed
 		if jump:
 			velocity.y = -jump_impulse
+			$SFX/Jump.play()
 		else:
 			velocity.y = clamp(velocity.y + gravity, -max_fall_speed, max_fall_speed)
 	else:
@@ -45,23 +56,33 @@ func _physics_process(delta):
 	
 	if is_on_floor():
 		velocity = move_and_slide_with_snap(velocity, Vector2(0, 3), Vector2.UP)
-	else:		
+	else:
 		velocity = move_and_slide(velocity, Vector2.UP)
+		if is_on_floor():
+			$SFX/Land.play()
 
 func hit(damage, from):
-	stunned = true
-	$Knockback.start()
-	velocity = (global_position - from).normalized()
-	velocity.x *= speed
-	velocity.y *= jump_impulse
-	
-	$AnimatedSprite.play("hurt")
-	
 	health -= damage
 	emit_signal("hurt", damage, health)
 	if health <= 0:
-		emit_signal("death")
+		dying = true
+		$AnimationPlayer.play("Die")
+	else:
+		stunned = true
+		$Knockback.start()
+		velocity = (global_position - from).normalized()
+		velocity.x *= speed
+		velocity.y *= jump_impulse
+		$AnimatedSprite.play("hurt")
 
 
 func _on_Knockback_timeout():
 	stunned = false
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	match(anim_name):
+		"Spawn":
+			loading = false
+		"Die":
+			emit_signal("death")
