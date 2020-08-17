@@ -5,6 +5,8 @@ export var health := 2
 export var knockback_strength := 200
 export var friction := 10
 export var gravity := 10
+export var max_speed := 50
+export var speed := 50
 
 var velocity := Vector2.ZERO
 
@@ -18,6 +20,8 @@ func _physics_process(delta):
 		velocity.x += friction
 	elif velocity.x > 0:
 		velocity.x -= friction
+	
+	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
 	if not is_on_floor():
 		velocity.y += gravity

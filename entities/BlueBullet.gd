@@ -3,7 +3,10 @@ extends Area2D
 export var disabled := false
 export var damage := 1
 export var speed := 200
-export var pierce := 0
+export var max_pierce := 0
+
+onready var pierce : int = max_pierce
+
 var player : Node2D
 
 func disable():
@@ -15,6 +18,7 @@ func enable():
 	disabled = false
 	$CollisionShape2D.disabled = false
 	$Sprite.visible = true
+	pierce = max_pierce
 
 func _physics_process(delta):
 	if not disabled:

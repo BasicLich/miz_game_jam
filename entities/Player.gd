@@ -28,7 +28,6 @@ var double_jumped := false
 
 func _ready():
 	$AnimationPlayer.play("Spawn")
-	print(collision_mask)
 
 func _physics_process(delta):
 	if loading or dying:
@@ -44,6 +43,7 @@ func _physics_process(delta):
 		emit_signal("cast", crystals)
 		var instance = crystal_tower.instance()
 		instance.global_position = global_position
+		instance.player = self
 		$CrystalTowers.add_child(instance)
 		$ShootCooldown.start()
 	
@@ -108,6 +108,12 @@ func _physics_process(delta):
 		if is_on_floor():
 			$SFX/Land.play()
 
+func restore_crystal():
+	crystals += 1
+	if crystals > max_crystals:
+		crystals = max_crystals
+	emit_signal("cast", crystals)
+
 func hit(damage, from):
 	health -= damage
 	if health < 0: 
@@ -124,10 +130,8 @@ func hit(damage, from):
 		velocity.y *= jump_impulse
 		$AnimatedSprite.play("hurt")
 
-
 func _on_Knockback_timeout():
 	stunned = false
-
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match(anim_name):

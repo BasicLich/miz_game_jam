@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://new_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://TileMap.gd" type="Script" id=2]
 [ext_resource path="res://entities/Spike.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://entities/Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/PatrolAI.tscn" type="PackedScene" id=6]
 
 [node name="World" type="Node2D"]
 
@@ -34,5 +35,4 @@ tile_data = PoolIntArray( -786417, 2, 0, -786416, 2, 2, -589829, 2, 0, -589828, 
 [node name="Enemy" parent="Enemies" instance=ExtResource( 5 )]
 position = Vector2( -75, 162 )
 
-[node name="Enemy2" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( -54, 163 )
+[node name="PatrolAI" parent="Enemies/Enemy" instance=ExtResource( 6 )]
