@@ -8,25 +8,29 @@ onready var crystal_bar := $HUD/MarginContainer/HBoxContainer/CrystalBar
 var heart_scene := preload("res://entities/Heart.tscn")
 var crystal_scene := preload("res://entities/Crystal.tscn")
 var mouse_cursor := preload("res://textures/target.png")
-var player
+var player_scene : PackedScene = preload("res://entities/Player.tscn")
+onready var player : Player = player_scene.instance()
 
 func _ready():
+	$HUD/MarginContainer.visible = false
 	Input.set_custom_mouse_cursor(mouse_cursor, 0, Vector2(16, 16))
-	reset()
 
 func reset():
 	for level in $CurrentLevel.get_children():
 		$CurrentLevel.remove_child(level)
 		level.queue_free()
 	
-	var level = first_level.instance()
+	var level: Level = first_level.instance()
 	$CurrentLevel.add_child(level)
 	
-	player = level.get_node("Player")
+	player.global_position = level.player_spawn.global_position
 	
+	player.connect("spawn", self, "__on_Player_spawn")
 	player.connect("death", self, "__on_Player_die")
 	player.connect("hurt", self, "__on_Player_hurt")
 	player.connect("cast", self, "__on_Player_cast")
+	player.connect("health_increase", self, "__on_Player_health_increase")
+	player.connect("crystals_increase", self, "__on_Player_crystals_increase")
 	
 	for child in health_bar.get_children():
 		health_bar.remove_child(child)
@@ -69,10 +73,50 @@ func refresh_crystals(crystals):
 			crystal_bar.get_child(i).play("full")
 
 func __on_Player_die():
-	call_deferred("reset")
+	call_deferred("restart")
+
+func __on_Player_spawn():
+	if player.spawn:
+		$AudioStreamPlayer.stream = $CurrentLevel.get_child(0).music
+		$AudioStreamPlayer.play()
+
+func restart():
+	reset()
+	player.spawn()
 
 func __on_Player_hurt(damage, health):
 	refresh_health(health)
 
 func __on_Player_cast(crystals):
 	refresh_crystals(crystals)
+
+func __on_Player_health_increase(health, max_health):
+	var heart = heart_scene.instance()
+	heart.play("empty")
+	health_bar.add_child(heart)
+	
+	refresh_health(health)
+
+func __on_Player_crystals_increase(crystals, max_crystals):
+	var crystal = crystal_scene.instance()
+	crystal.play("empty")
+	crystal_bar.add_child(crystal)
+	
+	refresh_crystals(crystals)
+
+
+func _on_MainMenu_start():
+	reset()
+	add_child(player)
+	player.spawn = true
+	player.spawn()
+	$HUD/MarginContainer.visible = true
+
+
+func _on_MainMenu_stop():
+	$AudioStreamPlayer.stop()
+	for level in $CurrentLevel.get_children():
+		$CurrentLevel.remove_child(level)
+		level.queue_free()
+	player.queue_free()
+	player = player_scene.instance()

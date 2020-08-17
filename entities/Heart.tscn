@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://textures/HalfHeartIcon.tres" type="Texture" id=1]
-[ext_resource path="res://textures/FullHeartIcon.tres" type="Texture" id=2]
+[ext_resource path="res://textures/Heart.tres" type="Texture" id=2]
 [ext_resource path="res://textures/EmptyHeartIcon.tres" type="Texture" id=3]
 [ext_resource path="res://entities/Heart.gd" type="Script" id=4]
 

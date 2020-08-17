@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://sfx/sfx_deathscream_alien6.wav" type="AudioStream" id=1]
 [ext_resource path="res://sfx/sfx_movement_jump1.wav" type="AudioStream" id=2]
@@ -206,7 +206,8 @@ tracks/10/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=14]
+resource_name = "Respawn"
 length = 0.5
 step = 0.5
 tracks/0/type = "bezier"
@@ -328,6 +329,141 @@ tracks/10/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=12]
+step = 0.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Spawn/BlueCrystalNW:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -16, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.5, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Spawn/BlueCrystalNW:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -16, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.5, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Spawn/BlueCrystalNE:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 16, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.5, 1 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Spawn/BlueCrystalNE:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( -16, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.5, 1 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("Spawn/BlueCrystalSW:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( -16, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.5, 1 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("Spawn/BlueCrystalSW:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 16, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.5, 1 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("Spawn/BlueCrystalSE:position:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 16, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.5, 1 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("Spawn/BlueCrystalSE:position:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 16, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.5, 1 )
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("AnimatedSprite:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Spawn:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/10/type = "method"
+tracks/10/path = NodePath("SFX/Spawn")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
+tracks/11/type = "method"
+tracks/11/path = NodePath(".")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "spawn" ],
+"method": "emit_signal"
+} ]
+}
+
 [sub_resource type="Animation" id=13]
 resource_name = "Walking"
 length = 0.25
@@ -351,11 +487,10 @@ tracks/0/keys = {
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( -158, 168 )
 collision_layer = 4
-collision_mask = 43
+collision_mask = 107
 script = ExtResource( 8 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-visible = false
 frames = SubResource( 9 )
 animation = "hidden"
 
@@ -379,25 +514,23 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Die = SubResource( 11 )
+anims/Respawn = SubResource( 14 )
 anims/Spawn = SubResource( 12 )
 anims/Walking = SubResource( 13 )
 
 [node name="Spawn" type="Node2D" parent="."]
+visible = false
 
 [node name="BlueCrystalNW" type="Sprite" parent="Spawn"]
-position = Vector2( -16, -16 )
 texture = ExtResource( 7 )
 
 [node name="BlueCrystalNE" type="Sprite" parent="Spawn"]
-position = Vector2( 16, -16 )
 texture = ExtResource( 7 )
 
 [node name="BlueCrystalSW" type="Sprite" parent="Spawn"]
-position = Vector2( -16, 16 )
 texture = ExtResource( 7 )
 
 [node name="BlueCrystalSE" type="Sprite" parent="Spawn"]
-position = Vector2( 16, 16 )
 texture = ExtResource( 7 )
 
 [node name="SFX" type="Node2D" parent="."]

@@ -1,8 +1,13 @@
 extends KinematicBody2D
 
+class_name Player
+
+signal spawn
 signal death
 signal hurt(damage, health)
 signal cast(crystals)
+signal health_increase(health, max_health)
+signal crystals_increase(crystals, max_crystals)
 
 export var crystal_tower : PackedScene = preload("res://entities/CrystalTower.tscn")
 
@@ -11,12 +16,14 @@ export var health : int = max_health
 export var max_crystals := 10
 export var crystals : int = max_crystals
 
+export var spawn := false
+
 export var speed := 150
 export var gravity := 20
 export var max_fall_speed := 500
 export var jump_impulse := 400
 
-export var double_jump_impulse := 250
+export var double_jump_impulse := 400
 export var can_double_jump := true
 
 var velocity := Vector2.ZERO
@@ -26,8 +33,11 @@ var dying := false
 var jumped := false
 var double_jumped := false
 
-func _ready():
-	$AnimationPlayer.play("Spawn")
+func spawn():
+	if spawn:
+		$AnimationPlayer.play("Spawn")
+	else:
+		$AnimationPlayer.play("Respawn")
 
 func _physics_process(delta):
 	if loading or dying:
@@ -137,5 +147,23 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	match(anim_name):
 		"Spawn":
 			loading = false
+		"Respawn":
+			loading = false
 		"Die":
 			emit_signal("death")
+
+func increment_hearts():
+	max_health += 2
+	health += 2
+	emit_signal("health_increase", health, max_health)
+
+func increment_crystals():
+	max_crystals += 1
+	crystals += 1
+	emit_signal("crystals_increase", crystals, max_crystals)
+
+func heal(amount):
+	health += amount
+	if health > max_health:
+		health = max_health
+	emit_signal("hurt", -1, health)

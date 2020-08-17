@@ -9,6 +9,7 @@ export var max_speed := 50
 export var speed := 50
 
 var velocity := Vector2.ZERO
+var stunned := false
 
 func _ready():
 	$AnimationPlayer.play("default")
@@ -21,7 +22,8 @@ func _physics_process(delta):
 	elif velocity.x > 0:
 		velocity.x -= friction
 	
-	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	if not stunned:
+		velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
 	if not is_on_floor():
 		velocity.y += gravity
@@ -33,10 +35,12 @@ func _on_Area2D_body_entered(body):
 		body.hit(damage, global_position)
 
 func hit(damage, from):
-	velocity += (global_position - from).normalized() * knockback_strength
+	velocity = (global_position - from).normalized() * knockback_strength
+	stunned = true
 	health -= damage
 	if health < 0:
 		health = 0
+	
 	if health <= 0:
 		$CollisionShape2D.set_deferred("disabled", true)
 		$Area2D/CollisionShape2D.set_deferred("disabled", true)
@@ -44,6 +48,11 @@ func hit(damage, from):
 		$SFX/Die.play()
 		$AnimationPlayer.play("die")
 		yield($AnimationPlayer, "animation_finished")
-		queue_free()		
+		queue_free()
 	else:
 		$SFX/Hit.play()
+		$Timer.start()
+
+
+func _on_Timer_timeout():
+	stunned = false
