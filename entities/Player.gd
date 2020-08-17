@@ -3,6 +3,7 @@ extends KinematicBody2D
 signal death
 signal hurt(damage, health)
 
+export var bullet : PackedScene = preload("res://entities/BlueBullet.tscn")
 export var max_health := 6
 export var health : int = max_health
 export var speed := 100
@@ -21,6 +22,14 @@ func _ready():
 func _physics_process(delta):
 	if loading or dying:
 		return
+	
+	if Input.is_action_just_pressed("attack") and $ShootCooldown.is_stopped():
+		var instance = bullet.instance()
+		instance.global_position = get_global_mouse_position() + Vector2(6, 6)
+		instance.look_at(self.global_position)
+		instance.player = self
+		$Bullets.add_child(instance)
+		$ShootCooldown.start()
 	
 	var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var jump = Input.is_action_just_pressed("jump") and $GroundCheck.is_colliding()

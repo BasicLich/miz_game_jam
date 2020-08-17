@@ -3,7 +3,7 @@ extends Node
 export var first_level : PackedScene
 
 var heart_scene := preload("res://entities/Heart.tscn")
-var mouse_cursor := preload("res://textures/MouseTarget.tres")
+var mouse_cursor := preload("res://textures/target.png")
 var player
 
 func _ready():
