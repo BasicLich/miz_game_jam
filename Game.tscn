@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.gd" type="Script" id=2]
 [ext_resource path="res://music/12 final battle.ogg" type="AudioStream" id=3]
+[ext_resource path="res://entities/Heart.tscn" type="PackedScene" id=4]
+[ext_resource path="res://entities/Crystal.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node"]
 script = ExtResource( 2 )
@@ -17,14 +19,44 @@ transform = Transform2D( 2, 0, 0, 2, 0, 0 )
 [node name="MarginContainer" type="MarginContainer" parent="HUD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -512.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthBar" type="HBoxContainer" parent="HUD/MarginContainer"]
-margin_right = 1024.0
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer"]
+margin_right = 512.0
 margin_bottom = 600.0
+size_flags_stretch_ratio = 0.0
+alignment = 1
+
+[node name="HealthBar" type="HBoxContainer" parent="HUD/MarginContainer/HBoxContainer"]
+margin_right = 254.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
 custom_constants/separation = -1
+
+[node name="Heart" parent="HUD/MarginContainer/HBoxContainer/HealthBar" instance=ExtResource( 4 )]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_scale = Vector2( 1, 1 )
+
+[node name="CrystalBar" type="HBoxContainer" parent="HUD/MarginContainer/HBoxContainer"]
+margin_left = 258.0
+margin_right = 512.0
+margin_bottom = 16.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_constants/separation = -1
+alignment = 2
+
+[node name="Crystal" parent="HUD/MarginContainer/HBoxContainer/CrystalBar" instance=ExtResource( 5 )]
+margin_left = 238.0
+margin_right = 254.0
+margin_bottom = 16.0
+rect_scale = Vector2( 1, 1 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )

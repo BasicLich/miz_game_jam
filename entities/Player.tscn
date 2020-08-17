@@ -426,6 +426,8 @@ stream = ExtResource( 10 )
 
 [node name="Bullets" type="Node" parent="."]
 
+[node name="CrystalTowers" type="Node" parent="."]
+
 [node name="ShootCooldown" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true

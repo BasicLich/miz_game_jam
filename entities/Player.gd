@@ -2,15 +2,23 @@ extends KinematicBody2D
 
 signal death
 signal hurt(damage, health)
+signal cast(crystals)
 
 export var bullet : PackedScene = preload("res://entities/BlueBullet.tscn")
+export var crystal_tower : PackedScene = preload("res://entities/CrystalTower.tscn")
+
 export var max_health := 6
 export var health : int = max_health
+export var max_crystals := 2
+export var crystals : int = max_crystals
+
 export var speed := 150
 export var gravity := 20
 export var max_fall_speed := 500
 export var jump_impulse := 400
+
 export var double_jump_impulse := 250
+export var can_double_jump := true
 
 var velocity := Vector2.ZERO
 var stunned := false
@@ -26,21 +34,35 @@ func _physics_process(delta):
 	if loading or dying:
 		return
 	
+	if Input.is_action_just_pressed("cast") and crystals > 0 and $ShootCooldown.is_stopped():
+		crystals -= 1
+		emit_signal("cast", crystals)
+		var instance = crystal_tower.instance()
+		instance.global_position = global_position
+		$CrystalTowers.add_child(instance)
+		$ShootCooldown.start()
+	
 	if Input.is_action_just_pressed("attack") and $ShootCooldown.is_stopped():
 		var instance = bullet.instance()
-		instance.global_position = get_global_mouse_position() + Vector2(6, 6)
-		instance.look_at(self.global_position)
-		instance.player = self
-		$Bullets.add_child(instance)
+		instance.global_position = get_global_mouse_position()
+		var instances = [instance]
+		for tower in $CrystalTowers.get_children():
+			var i = bullet.instance()
+			i.global_position = tower.global_position
+			instances.append(i)
 		$ShootCooldown.start()
 		$SFX/Shoot.play()
+		for i in instances:
+			i.look_at(self.global_position)
+			i.player = self
+			$Bullets.add_child(i)
 	
 	if double_jumped and $GroundCheck.is_colliding():
 		double_jumped = false
 	
 	var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var jump = Input.is_action_just_pressed("jump") and $GroundCheck.is_colliding()
-	var double_jump = Input.is_action_just_pressed("jump") and not $GroundCheck.is_colliding() and not double_jumped
+	var double_jump = can_double_jump and Input.is_action_just_pressed("jump") and not $GroundCheck.is_colliding() and not double_jumped
 	
 	if direction < 0:
 		$AnimatedSprite.flip_h = true
