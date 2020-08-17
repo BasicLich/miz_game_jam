@@ -6,7 +6,6 @@
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://entities/Enemy.tscn" type="PackedScene" id=5]
 
-
 [node name="World" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -20,5 +19,10 @@ spikeCollider = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 
-[node name="Enemy" parent="." instance=ExtResource( 5 )]
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 5 )]
 position = Vector2( -75, 162 )
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( -54, 163 )
