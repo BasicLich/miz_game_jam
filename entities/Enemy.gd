@@ -33,3 +33,13 @@ func hit(damage, from):
 	health -= damage
 	if health < 0:
 		health = 0
+	if health <= 0:
+		$CollisionShape2D.set_deferred("disabled", true)
+		$Area2D/CollisionShape2D.set_deferred("disabled", true)
+		velocity.y = 10
+		$SFX/Die.play()
+		$AnimationPlayer.play("die")
+		yield($AnimationPlayer, "animation_finished")
+		queue_free()		
+	else:
+		$SFX/Hit.play()

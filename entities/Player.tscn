@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://sfx/sfx_deathscream_alien6.wav" type="AudioStream" id=1]
 [ext_resource path="res://sfx/sfx_movement_jump1.wav" type="AudioStream" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://textures/BlueCrystal.tres" type="Texture" id=7]
 [ext_resource path="res://entities/Player.gd" type="Script" id=8]
 [ext_resource path="res://1bitpack_kenney_1.1/Tilesheet/colored_transparent.png" type="Texture" id=9]
+[ext_resource path="res://sfx/sfx_wpn_laser8.wav" type="AudioStream" id=10]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 1
@@ -363,7 +364,7 @@ shape = SubResource( 10 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.2, 0.2 )
+zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
 
 [node name="GroundCheck" type="RayCast2D" parent="."]
@@ -419,6 +420,9 @@ volume_db = -10.0
 
 [node name="Hurt" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 1 )
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource( 10 )
 
 [node name="Bullets" type="Node" parent="."]
 

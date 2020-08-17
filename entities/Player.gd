@@ -6,15 +6,18 @@ signal hurt(damage, health)
 export var bullet : PackedScene = preload("res://entities/BlueBullet.tscn")
 export var max_health := 6
 export var health : int = max_health
-export var speed := 100
+export var speed := 150
 export var gravity := 20
 export var max_fall_speed := 500
-export var jump_impulse := 300
+export var jump_impulse := 400
+export var double_jump_impulse := 250
 
 var velocity := Vector2.ZERO
 var stunned := false
 var loading := true
 var dying := false
+var jumped := false
+var double_jumped := false
 
 func _ready():
 	$AnimationPlayer.play("Spawn")
@@ -30,9 +33,14 @@ func _physics_process(delta):
 		instance.player = self
 		$Bullets.add_child(instance)
 		$ShootCooldown.start()
+		$SFX/Shoot.play()
+	
+	if double_jumped and $GroundCheck.is_colliding():
+		double_jumped = false
 	
 	var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var jump = Input.is_action_just_pressed("jump") and $GroundCheck.is_colliding()
+	var double_jump = Input.is_action_just_pressed("jump") and not $GroundCheck.is_colliding() and not double_jumped
 	
 	if direction < 0:
 		$AnimatedSprite.flip_h = true
@@ -57,6 +65,10 @@ func _physics_process(delta):
 		velocity.x = direction * speed
 		if jump:
 			velocity.y = -jump_impulse
+			$SFX/Jump.play()
+		elif double_jump:
+			double_jumped = true
+			velocity.y = -double_jump_impulse
 			$SFX/Jump.play()
 		else:
 			velocity.y = clamp(velocity.y + gravity, -max_fall_speed, max_fall_speed)
