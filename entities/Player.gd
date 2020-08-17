@@ -4,12 +4,11 @@ signal death
 signal hurt(damage, health)
 signal cast(crystals)
 
-export var bullet : PackedScene = preload("res://entities/BlueBullet.tscn")
 export var crystal_tower : PackedScene = preload("res://entities/CrystalTower.tscn")
 
 export var max_health := 6
 export var health : int = max_health
-export var max_crystals := 2
+export var max_crystals := 10
 export var crystals : int = max_crystals
 
 export var speed := 150
@@ -29,10 +28,16 @@ var double_jumped := false
 
 func _ready():
 	$AnimationPlayer.play("Spawn")
+	print(collision_mask)
 
 func _physics_process(delta):
 	if loading or dying:
 		return
+	
+	if Input.is_action_just_pressed("down"):
+		set_collision_mask_bit(5, false)
+	elif Input.is_action_just_released("down"):
+		set_collision_mask_bit(5, true)
 	
 	if Input.is_action_just_pressed("cast") and crystals > 0 and $ShootCooldown.is_stopped():
 		crystals -= 1
@@ -43,11 +48,11 @@ func _physics_process(delta):
 		$ShootCooldown.start()
 	
 	if Input.is_action_just_pressed("attack") and $ShootCooldown.is_stopped():
-		var instance = bullet.instance()
+		var instance = $BulletPool.allocate()
 		instance.global_position = get_global_mouse_position()
 		var instances = [instance]
 		for tower in $CrystalTowers.get_children():
-			var i = bullet.instance()
+			var i = $BulletPool.allocate()
 			i.global_position = tower.global_position
 			instances.append(i)
 		$ShootCooldown.start()
@@ -55,7 +60,6 @@ func _physics_process(delta):
 		for i in instances:
 			i.look_at(self.global_position)
 			i.player = self
-			$Bullets.add_child(i)
 	
 	if double_jumped and $GroundCheck.is_colliding():
 		double_jumped = false
