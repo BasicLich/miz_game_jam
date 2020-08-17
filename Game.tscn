@@ -29,4 +29,3 @@ custom_constants/separation = -1
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -5.0
-autoplay = true

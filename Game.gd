@@ -2,10 +2,12 @@ extends Node
 
 export var first_level : PackedScene
 
-var heart_scene := preload("res://Heart.tscn")
+var heart_scene := preload("res://entities/Heart.tscn")
+var mouse_cursor := preload("res://textures/MouseTarget.tres")
 var player
 
 func _ready():
+	Input.set_custom_mouse_cursor(mouse_cursor)
 	reset()
 
 func reset():
