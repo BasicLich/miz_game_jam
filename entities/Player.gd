@@ -8,6 +8,7 @@ signal hurt(damage, health)
 signal cast(crystals)
 signal health_increase(health, max_health)
 signal crystals_increase(crystals, max_crystals)
+signal change_level(level)
 
 export var crystal_tower : PackedScene = preload("res://entities/CrystalTower.tscn")
 
@@ -16,7 +17,7 @@ export var health : int = max_health
 export var max_crystals := 10
 export var crystals : int = max_crystals
 
-export var firstSpawn := false
+export var firstSpawn := true
 
 export var speed := 150
 export var gravity := 20
@@ -37,6 +38,7 @@ func _ready():
 	$Spawn.visible = false
 
 func spawn():
+	$AnimatedSprite.scale = Vector2(1, 1)
 	stunned = false
 	velocity = Vector2.ZERO
 	loading = true
@@ -44,7 +46,6 @@ func spawn():
 	jumped = false
 	double_jumped = false
 	$AnimatedSprite.play("default")
-	$AnimationPlayer.stop()
 	$Knockback.stop()
 	$ShootCooldown.stop()
 	$BulletPool.refresh()
@@ -56,6 +57,9 @@ func spawn():
 		firstSpawn = false
 	else:
 		$AnimationPlayer.play("Respawn")
+	
+	$Camera2D.align()
+	$Camera2D.smoothing_enabled = true
 
 func _physics_process(_delta):
 	if loading or dying:
@@ -186,3 +190,23 @@ func heal(amount):
 	if health > max_health:
 		health = max_health
 	emit_signal("hurt", -1, health)
+
+func change_scene(next_level):
+	stunned = false
+	velocity = Vector2.ZERO
+	loading = true
+	dying = false
+	jumped = false
+	double_jumped = false
+	$AnimatedSprite.play("default")
+	$AnimationPlayer.stop()
+	$Knockback.stop()
+	$ShootCooldown.stop()
+	$BulletPool.refresh()
+	for child in $CrystalTowers.get_children():
+		child.queue_free()
+	$AnimationPlayer.play("Leave")
+	yield($AnimationPlayer, "animation_finished")
+	$Camera2D.smoothing_enabled = false
+	$Camera2D.align()
+	emit_signal("change_level", next_level)

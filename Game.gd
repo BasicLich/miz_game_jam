@@ -14,12 +14,15 @@ onready var player : Player = player_scene.instance()
 var level : Level
 
 func load_level(scene):
+	level = scene.instance()
+	
 	for i in $CurrentLevel.get_children():
 		$CurrentLevel.remove_child(i)
 		i.queue_free()
 	
-	level = scene.instance()
 	$CurrentLevel.add_child(level)
+	player.global_position = level.player_spawn.global_position
+	player.call_deferred("spawn")
 
 func _ready():
 	$HUD/MarginContainer.visible = false
@@ -31,12 +34,12 @@ func _ready():
 	player.connect("cast", self, "__on_Player_cast")
 	player.connect("health_increase", self, "__on_Player_health_increase")
 	player.connect("crystals_increase", self, "__on_Player_crystals_increase")
+	player.connect("change_level", self, "__on_Player_change_level")
 
 func reset():
 	player.health = player.max_health
 	player.crystals = player.max_crystals
 	player.global_position = level.player_spawn.global_position
-	level.gateway.connect("change_level", self, "__on_Gateway_change_level")
 	
 	for child in health_bar.get_children():
 		health_bar.remove_child(child)
@@ -82,8 +85,8 @@ func __on_Player_die():
 	call_deferred("restart")
 
 func __on_Player_spawn():
-	if $AudioStreamPlayer.stream != $CurrentLevel.get_child(0).music:
-		$AudioStreamPlayer.stream = $CurrentLevel.get_child(0).music
+	if $AudioStreamPlayer.stream != level.music:
+		$AudioStreamPlayer.stream = level.music
 		$AudioStreamPlayer.play()
 
 func restart():
@@ -112,11 +115,10 @@ func __on_Player_crystals_increase(crystals, _max_crystals):
 
 
 func _on_MainMenu_start():
-	load_level(first_level)
-	reset()
 	add_child(player)
 	player.firstSpawn = true
-	player.spawn()
+	load_level(first_level)
+	reset()
 	$HUD/MarginContainer.visible = true
 
 
@@ -128,5 +130,5 @@ func _on_MainMenu_stop():
 	player.queue_free()
 	player = player_scene.instance()
 
-func __on_Gateway_change_level(level: PackedScene):
-	load_level(level)
+func __on_Player_change_level(new_level: PackedScene):
+	call_deferred("load_level", new_level)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://sfx/sfx_deathscream_alien6.wav" type="AudioStream" id=1]
 [ext_resource path="res://sfx/sfx_movement_jump1.wav" type="AudioStream" id=2]
@@ -216,6 +216,30 @@ tracks/11/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "Leave"
+step = 0.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("AnimatedSprite:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.0596303, 1.15437, 0, -0.119655, -0.387762, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("AnimatedSprite:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.0588245, 0.992106, 0, -0.131742, -0.225498, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
 }
 
 [sub_resource type="Animation" id=12]
@@ -528,16 +552,15 @@ script = ExtResource( 8 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 9 )
-animation = "hidden"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2 )
 shape = SubResource( 10 )
+disabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.5, 0.5 )
-smoothing_enabled = true
 
 [node name="GroundCheck" type="RayCast2D" parent="."]
 enabled = true
@@ -550,22 +573,28 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Die = SubResource( 11 )
+anims/Leave = SubResource( 15 )
 anims/Respawn = SubResource( 12 )
 anims/Spawn = SubResource( 13 )
 anims/Walking = SubResource( 14 )
 
 [node name="Spawn" type="Node2D" parent="."]
+visible = false
 
 [node name="BlueCrystalNW" type="Sprite" parent="Spawn"]
+position = Vector2( -16, -16 )
 texture = ExtResource( 7 )
 
 [node name="BlueCrystalNE" type="Sprite" parent="Spawn"]
+position = Vector2( 16, -16 )
 texture = ExtResource( 7 )
 
 [node name="BlueCrystalSW" type="Sprite" parent="Spawn"]
+position = Vector2( -16, 16 )
 texture = ExtResource( 7 )
 
 [node name="BlueCrystalSE" type="Sprite" parent="Spawn"]
+position = Vector2( 16, 16 )
 texture = ExtResource( 7 )
 
 [node name="SFX" type="Node2D" parent="."]

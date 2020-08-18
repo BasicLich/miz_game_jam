@@ -70,7 +70,7 @@ position = Vector2( 1160, 1032 )
 [node name="PatrolAI" parent="Enemies/Enemy2" instance=ExtResource( 5 )]
 
 [node name="PlayerSpawn" type="Position2D" parent="."]
-position = Vector2( -41, 318 )
+position = Vector2( 1857, 2786 )
 
 [node name="Gateway" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1944, 2793 )

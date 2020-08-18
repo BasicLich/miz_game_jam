@@ -2,8 +2,6 @@ extends Area2D
 
 class_name Gateway
 
-signal change_level
-
 export var next_level : PackedScene
 
 func _ready():
@@ -15,7 +13,5 @@ func enable():
 	$Sprite.visible = true
 
 func _on_Gateway_body_entered(body):
-	print("Gateway")
 	if body is Player:
-		print("PLAYER!")
-		emit_signal("change_level", next_level)
+		body.change_scene(next_level)
