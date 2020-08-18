@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Gateway",
+"language": "GDScript",
+"path": "res://levels/Gateway.gd"
+}, {
 "base": "Node2D",
 "class": "Level",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://entities/Player.gd"
 } ]
 _global_script_class_icons={
+"Gateway": "",
 "Level": "",
 "Player": ""
 }
@@ -78,6 +84,7 @@ down={
 2d_physics/layer_5="player_attack"
 2d_physics/layer_6="fallthrough_platform"
 2d_physics/layer_7="pickup"
+2d_physics/layer_8="gateway"
 
 [rendering]
 

@@ -11,12 +11,12 @@ var player : Node2D
 
 func disable():
 	disabled = true
-	$CollisionShape2D.disabled = true
+	$CollisionShape2D.set_deferred("disabled", true)
 	$Sprite.visible = false
 
 func enable():
 	disabled = false
-	$CollisionShape2D.disabled = false
+	$CollisionShape2D.set_deferred("disabled", false)
 	$Sprite.visible = true
 	pierce = max_pierce
 
