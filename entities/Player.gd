@@ -16,7 +16,7 @@ export var health : int = max_health
 export var max_crystals := 10
 export var crystals : int = max_crystals
 
-export var spawn := false
+export var firstSpawn := false
 
 export var speed := 150
 export var gravity := 20
@@ -33,13 +33,35 @@ var dying := false
 var jumped := false
 var double_jumped := false
 
+func _ready():
+	$Spawn.visible = false
+
 func spawn():
-	if spawn:
+	stunned = false
+	velocity = Vector2.ZERO
+	loading = true
+	dying = false
+	jumped = false
+	double_jumped = false
+	health = max_health
+	crystals = max_crystals
+	emit_signal("hurt", 0, health)
+	emit_signal("cast", crystals)
+	$AnimatedSprite.play("default")
+	$AnimationPlayer.stop()
+	$Knockback.stop()
+	$ShootCooldown.stop()
+	$BulletPool.refresh()
+	for child in $CrystalTowers.get_children():
+		child.queue_free()
+	
+	if firstSpawn:
 		$AnimationPlayer.play("Spawn")
+		firstSpawn = false
 	else:
 		$AnimationPlayer.play("Respawn")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if loading or dying:
 		return
 	
@@ -125,6 +147,7 @@ func restore_crystal():
 	emit_signal("cast", crystals)
 
 func hit(damage, from):
+	print("hurt: " + str(damage) + " " + str(from))
 	health -= damage
 	if health < 0: 
 		health = 0

@@ -14,6 +14,13 @@ onready var player : Player = player_scene.instance()
 func _ready():
 	$HUD/MarginContainer.visible = false
 	Input.set_custom_mouse_cursor(mouse_cursor, 0, Vector2(16, 16))
+	
+	player.connect("spawn", self, "__on_Player_spawn")
+	player.connect("death", self, "__on_Player_die")
+	player.connect("hurt", self, "__on_Player_hurt")
+	player.connect("cast", self, "__on_Player_cast")
+	player.connect("health_increase", self, "__on_Player_health_increase")
+	player.connect("crystals_increase", self, "__on_Player_crystals_increase")
 
 func reset():
 	for level in $CurrentLevel.get_children():
@@ -23,14 +30,9 @@ func reset():
 	var level: Level = first_level.instance()
 	$CurrentLevel.add_child(level)
 	
+	player.health = player.max_health
+	player.crystals = player.max_crystals
 	player.global_position = level.player_spawn.global_position
-	
-	player.connect("spawn", self, "__on_Player_spawn")
-	player.connect("death", self, "__on_Player_die")
-	player.connect("hurt", self, "__on_Player_hurt")
-	player.connect("cast", self, "__on_Player_cast")
-	player.connect("health_increase", self, "__on_Player_health_increase")
-	player.connect("crystals_increase", self, "__on_Player_crystals_increase")
 	
 	for child in health_bar.get_children():
 		health_bar.remove_child(child)
@@ -40,12 +42,12 @@ func reset():
 		crystal_bar.remove_child(child)
 		child.queue_free()
 	
-	for i in range(0, ceil(player.max_health / 2.0)):
+	for _i in range(0, ceil(player.max_health / 2.0)):
 		var heart = heart_scene.instance()
 		heart.play("empty")
 		health_bar.add_child(heart)
 	
-	for i in range(0, ceil(player.max_crystals)):
+	for _i in range(0, ceil(player.max_crystals)):
 		var crystal = crystal_scene.instance()
 		crystal.play("empty")
 		crystal_bar.add_child(crystal)
@@ -54,6 +56,7 @@ func reset():
 	refresh_crystals(player.crystals)
 
 func refresh_health(health):
+	print("refresh health: " + str(health))
 	if health_bar.get_child_count() > 0:
 		for child in health_bar.get_children():
 			child.play("empty")
@@ -76,7 +79,7 @@ func __on_Player_die():
 	call_deferred("restart")
 
 func __on_Player_spawn():
-	if player.spawn:
+	if $AudioStreamPlayer.stream != $CurrentLevel.get_child(0).music:
 		$AudioStreamPlayer.stream = $CurrentLevel.get_child(0).music
 		$AudioStreamPlayer.play()
 
@@ -84,20 +87,20 @@ func restart():
 	reset()
 	player.spawn()
 
-func __on_Player_hurt(damage, health):
+func __on_Player_hurt(_damage, health):
 	refresh_health(health)
 
 func __on_Player_cast(crystals):
 	refresh_crystals(crystals)
 
-func __on_Player_health_increase(health, max_health):
+func __on_Player_health_increase(health, _max_health):
 	var heart = heart_scene.instance()
 	heart.play("empty")
 	health_bar.add_child(heart)
 	
 	refresh_health(health)
 
-func __on_Player_crystals_increase(crystals, max_crystals):
+func __on_Player_crystals_increase(crystals, _max_crystals):
 	var crystal = crystal_scene.instance()
 	crystal.play("empty")
 	crystal_bar.add_child(crystal)
@@ -108,7 +111,7 @@ func __on_Player_crystals_increase(crystals, max_crystals):
 func _on_MainMenu_start():
 	reset()
 	add_child(player)
-	player.spawn = true
+	player.firstSpawn = true
 	player.spawn()
 	$HUD/MarginContainer.visible = true
 

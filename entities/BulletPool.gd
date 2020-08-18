@@ -8,7 +8,7 @@ var unallocated := []
 var allocated := []
 
 func _ready():
-	for i in range (0, initial_pool_size):
+	for _i in range (0, initial_pool_size):
 		var instance = bullet.instance()
 		instance.disable()
 		add_child(instance)
@@ -16,7 +16,7 @@ func _ready():
 
 func allocate() -> Area2D:
 	if unallocated.empty():
-		for i in range(0, pool_grow_size):
+		for _i in range(0, pool_grow_size):
 			var instance = bullet.instance()
 			instance.disable()
 			add_child(instance)
@@ -30,3 +30,7 @@ func deallocate(instance):
 	instance.disable()
 	allocated.remove(allocated.find(instance))
 	unallocated.append(instance)
+
+func refresh():
+	while not allocated.empty():
+		deallocate(allocated[0])

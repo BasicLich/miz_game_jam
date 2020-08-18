@@ -4,7 +4,7 @@ export var facing_left := false
 
 var spawning := true
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not spawning:
 		if $WallCheck.is_colliding() or not $FallCheck.is_colliding():
 			facing_left = !facing_left

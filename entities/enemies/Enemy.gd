@@ -14,7 +14,7 @@ var stunned := false
 func _ready():
 	$AnimationPlayer.play("default")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if abs(velocity.x) < friction:
 		velocity.x = 0
 	elif velocity.x < 0:
@@ -34,10 +34,10 @@ func _on_Area2D_body_entered(body):
 	if body.has_method("hit"):
 		body.hit(damage, global_position)
 
-func hit(damage, from):
+func hit(amount, from):
 	velocity = (global_position - from).normalized() * knockback_strength
 	stunned = true
-	health -= damage
+	health -= amount
 	if health < 0:
 		health = 0
 	

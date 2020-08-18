@@ -205,8 +205,20 @@ tracks/10/keys = {
 "method": "play"
 } ]
 }
+tracks/11/type = "value"
+tracks/11/path = NodePath("CollisionShape2D:disabled")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=12]
 resource_name = "Respawn"
 length = 0.5
 step = 0.5
@@ -328,8 +340,20 @@ tracks/10/keys = {
 "method": "play"
 } ]
 }
+tracks/11/type = "value"
+tracks/11/path = NodePath("CollisionShape2D:disabled")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 step = 0.5
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Spawn/BlueCrystalNW:position:x")
@@ -430,10 +454,10 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ false, true, false ]
 }
 tracks/10/type = "method"
 tracks/10/path = NodePath("SFX/Spawn")
@@ -463,9 +487,20 @@ tracks/11/keys = {
 "method": "emit_signal"
 } ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("CollisionShape2D:disabled")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
-[sub_resource type="Animation" id=13]
-resource_name = "Walking"
+[sub_resource type="Animation" id=14]
 length = 0.25
 loop = true
 step = 0.3
@@ -491,6 +526,7 @@ collision_mask = 107
 script = ExtResource( 8 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
 frames = SubResource( 9 )
 animation = "hidden"
 
@@ -514,12 +550,11 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Die = SubResource( 11 )
-anims/Respawn = SubResource( 14 )
-anims/Spawn = SubResource( 12 )
-anims/Walking = SubResource( 13 )
+anims/Respawn = SubResource( 12 )
+anims/Spawn = SubResource( 13 )
+anims/Walking = SubResource( 14 )
 
 [node name="Spawn" type="Node2D" parent="."]
-visible = false
 
 [node name="BlueCrystalNW" type="Sprite" parent="Spawn"]
 texture = ExtResource( 7 )
