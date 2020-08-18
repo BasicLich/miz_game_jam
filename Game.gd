@@ -124,6 +124,8 @@ func _on_MainMenu_start():
 
 func _on_MainMenu_stop():
 	$AudioStreamPlayer.stop()
+	$AudioStreamPlayer.stream = null
+	
 	for level in $CurrentLevel.get_children():
 		$CurrentLevel.remove_child(level)
 		level.queue_free()
