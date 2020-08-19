@@ -26,7 +26,6 @@ func load_level(scene):
 
 func _ready():
 	$HUD/MarginContainer.visible = false
-	Input.set_custom_mouse_cursor(mouse_cursor, 0, Vector2(16, 16))
 	
 	player.connect("spawn", self, "__on_Player_spawn")
 	player.connect("death", self, "__on_Player_die")

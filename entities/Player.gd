@@ -80,15 +80,14 @@ func _physics_process(_delta):
 		$ShootCooldown.start()
 	
 	if Input.is_action_just_pressed("attack") and $ShootCooldown.is_stopped():
-		var instance = $BulletPool.allocate()
-		instance.global_position = get_global_mouse_position()
-		var instances = [instance]
+		var instances = []
 		for tower in $CrystalTowers.get_children():
 			var i = $BulletPool.allocate()
 			i.global_position = tower.global_position
 			instances.append(i)
-		$ShootCooldown.start()
-		$SFX/Shoot.play()
+		if not instances.empty():
+			$ShootCooldown.start()
+			$SFX/Shoot.play()
 		for i in instances:
 			i.look_at(self.global_position)
 			i.player = self
