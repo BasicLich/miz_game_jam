@@ -8,3 +8,7 @@ func _ready():
 func expire():
 	player.restore_crystal()
 	queue_free()
+
+func _on_CrystalTower_area_entered(area):
+	$AnimationPlayer.stop()
+	expire()

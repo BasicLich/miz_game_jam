@@ -35,3 +35,7 @@ func _on_BlueBullet_body_entered(body):
 			body.hit(damage, global_position)
 	if pierce < 0:
 		get_parent().deallocate(self)
+
+
+func _on_BlueBullet_area_entered(area):
+	get_parent().deallocate(self)

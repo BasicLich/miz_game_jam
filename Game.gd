@@ -11,6 +11,7 @@ var mouse_cursor := preload("res://textures/target.png")
 var player_scene : PackedScene = preload("res://entities/Player.tscn")
 onready var player : Player = player_scene.instance()
 
+var level_scene: PackedScene
 var level : Level
 
 func load_level(scene):
@@ -22,6 +23,9 @@ func load_level(scene):
 	
 	$CurrentLevel.add_child(level)
 	player.global_position = level.player_spawn.global_position
+	player.health = player.max_health
+	player.crystals = player.max_crystals
+	reset()
 	player.call_deferred("spawn")
 
 func _ready():
@@ -36,10 +40,6 @@ func _ready():
 	player.connect("change_level", self, "__on_Player_change_level")
 
 func reset():
-	player.health = player.max_health
-	player.crystals = player.max_crystals
-	player.global_position = level.player_spawn.global_position
-	
 	for child in health_bar.get_children():
 		health_bar.remove_child(child)
 		child.queue_free()
@@ -84,14 +84,12 @@ func __on_Player_die():
 	call_deferred("restart")
 
 func __on_Player_spawn():
-	pass
-#	if $AudioStreamPlayer.stream != level.music:
-#		$AudioStreamPlayer.stream = level.music
-#		$AudioStreamPlayer.play()
+	if $AudioStreamPlayer.stream != level.music:
+		$AudioStreamPlayer.stream = level.music
+		$AudioStreamPlayer.play()
 
 func restart():
-	reset()
-	player.spawn()
+	load_level(level_scene)
 
 func __on_Player_hurt(_damage, health):
 	refresh_health(health)
@@ -117,6 +115,7 @@ func __on_Player_crystals_increase(crystals, _max_crystals):
 func _on_MainMenu_start():
 	add_child(player)
 	player.firstSpawn = true
+	level_scene = first_level
 	load_level(first_level)
 	reset()
 	$HUD/MarginContainer.visible = true
@@ -133,4 +132,5 @@ func _on_MainMenu_stop():
 	player = player_scene.instance()
 
 func __on_Player_change_level(new_level: PackedScene):
+	level_scene = new_level
 	call_deferred("load_level", new_level)

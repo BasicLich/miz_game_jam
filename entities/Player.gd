@@ -45,6 +45,8 @@ func spawn():
 	dying = false
 	jumped = false
 	double_jumped = false
+	health = max_health
+	crystals = max_crystals
 	$AnimatedSprite.play("default")
 	$Knockback.stop()
 	$ShootCooldown.stop()

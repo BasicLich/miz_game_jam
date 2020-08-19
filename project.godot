@@ -93,6 +93,9 @@ down={
 2d_physics/layer_6="fallthrough_platform"
 2d_physics/layer_7="pickup"
 2d_physics/layer_8="gateway"
+2d_physics/layer_9="cancel_bullet"
+2d_physics/layer_10="cancel_crystal"
+2d_physics/layer_11="crystal"
 
 [rendering]
 
