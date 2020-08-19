@@ -84,9 +84,10 @@ func __on_Player_die():
 	call_deferred("restart")
 
 func __on_Player_spawn():
-	if $AudioStreamPlayer.stream != level.music:
-		$AudioStreamPlayer.stream = level.music
-		$AudioStreamPlayer.play()
+	pass
+#	if $AudioStreamPlayer.stream != level.music:
+#		$AudioStreamPlayer.stream = level.music
+#		$AudioStreamPlayer.play()
 
 func restart():
 	reset()

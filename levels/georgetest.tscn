@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://music/12 final battle.ogg" type="AudioStream" id=1]
 [ext_resource path="res://levels/Gateway.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/Level0.gd" type="Script" id=3]
-[ext_resource path="res://new_tileset.tres" type="TileSet" id=4]
+[ext_resource path="res://tilesets/general.tres" type="TileSet" id=4]
 [ext_resource path="res://entities/ai/PatrolAI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=6]
 [ext_resource path="res://TileMap.gd" type="Script" id=7]
@@ -11,15 +11,12 @@
 [ext_resource path="res://entities/pickups/CrystalPickup.tscn" type="PackedScene" id=9]
 [ext_resource path="res://entities/pickups/HeartPickup.tscn" type="PackedScene" id=10]
 [ext_resource path="res://entities/pickups/Apple.tscn" type="PackedScene" id=11]
-[ext_resource path="res://World.tscn" type="PackedScene" id=12]
+[ext_resource path="res://levels/Level1.tscn" type="PackedScene" id=12]
+[ext_resource path="res://tilesets/platforms.tres" type="TileSet" id=13]
 
 [node name="Level0" type="Node2D"]
 script = ExtResource( 3 )
 music = ExtResource( 1 )
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
-volume_db = -5.0
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2( 0, 1 )
@@ -34,7 +31,7 @@ spikeCollider = ExtResource( 8 )
 
 [node name="FallthroughMap" type="TileMap" parent="."]
 position = Vector2( -576, -16 )
-tile_set = ExtResource( 4 )
+tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_quadrant_size = 32
 collision_layer = 32
@@ -215,7 +212,7 @@ position = Vector2( 1450, 2679 )
 position = Vector2( -1, -6 )
 
 [node name="PlayerSpawn" type="Position2D" parent="."]
-position = Vector2( -91, 312 )
+position = Vector2( -41, 301 )
 
 [node name="Gateway" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1952, 2794 )

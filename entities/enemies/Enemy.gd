@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export var damage := 1
 export var health := 2
-export var knockback_strength := 200
+export var knockback_strength := 300
 export var friction := 10
 export var gravity := 10
 export var max_speed := 50

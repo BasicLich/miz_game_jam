@@ -14,14 +14,14 @@ export var crystal_tower : PackedScene = preload("res://entities/CrystalTower.ts
 
 export var max_health := 6
 export var health : int = max_health
-export var max_crystals := 10
+export var max_crystals := 0
 export var crystals : int = max_crystals
 
 export var firstSpawn := true
 
 export var speed := 150
 export var gravity := 20
-export var max_fall_speed := 500
+export var max_fall_speed := 400
 export var jump_impulse := 400
 
 export var double_jump_impulse := 400
@@ -70,7 +70,7 @@ func _physics_process(_delta):
 	elif Input.is_action_just_released("down"):
 		set_collision_mask_bit(5, true)
 	
-	if Input.is_action_just_pressed("cast") and crystals > 0 and $ShootCooldown.is_stopped():
+	if Input.is_action_pressed("cast") and crystals > 0 and $ShootCooldown.is_stopped():
 		crystals -= 1
 		emit_signal("cast", crystals)
 		var instance = crystal_tower.instance()
@@ -79,7 +79,7 @@ func _physics_process(_delta):
 		$CrystalTowers.add_child(instance)
 		$ShootCooldown.start()
 	
-	if Input.is_action_just_pressed("attack") and $ShootCooldown.is_stopped():
+	if Input.is_action_pressed("attack") and $ShootCooldown.is_stopped():
 		var instances = []
 		for tower in $CrystalTowers.get_children():
 			var i = $BulletPool.allocate()
