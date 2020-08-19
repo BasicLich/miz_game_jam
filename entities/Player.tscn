@@ -218,7 +218,7 @@ tracks/11/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=12]
 resource_name = "Leave"
 step = 0.5
 tracks/0/type = "bezier"
@@ -242,8 +242,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 )
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "Respawn"
+[sub_resource type="Animation" id=13]
 length = 0.5
 step = 0.5
 tracks/0/type = "bezier"
@@ -377,7 +376,7 @@ tracks/11/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 step = 0.5
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Spawn/BlueCrystalNW:position:x")
@@ -524,7 +523,7 @@ tracks/12/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=15]
 length = 0.25
 loop = true
 step = 0.3
@@ -548,6 +547,7 @@ position = Vector2( -158, 168 )
 collision_layer = 4
 collision_mask = 235
 script = ExtResource( 8 )
+max_crystals = 0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 visible = false
@@ -573,10 +573,10 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Die = SubResource( 11 )
-anims/Leave = SubResource( 15 )
-anims/Respawn = SubResource( 12 )
-anims/Spawn = SubResource( 13 )
-anims/Walking = SubResource( 14 )
+anims/Leave = SubResource( 12 )
+anims/Respawn = SubResource( 13 )
+anims/Spawn = SubResource( 14 )
+anims/Walking = SubResource( 15 )
 
 [node name="Spawn" type="Node2D" parent="."]
 visible = false
