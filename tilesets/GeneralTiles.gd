@@ -1,6 +1,6 @@
 extends TileMap
 
-export var spikeCollider : PackedScene
+var spikeCollider : PackedScene = preload("res://tilesets/tiles/Spike.tscn")
 
 func _ready():
 	var id = tile_set.find_tile_by_name("Spikes")

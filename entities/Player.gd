@@ -34,6 +34,9 @@ var dying := false
 var jumped := false
 var double_jumped := false
 
+var hearts_added := 0
+var crystals_added := 0
+
 func _ready():
 	$Spawn.visible = false
 
@@ -45,6 +48,8 @@ func spawn():
 	dying = false
 	jumped = false
 	double_jumped = false
+	hearts_added = 0
+	crystals_added = 0
 	health = max_health
 	crystals = max_crystals
 	$AnimatedSprite.play("default")
@@ -154,7 +159,7 @@ func hit(damage, from):
 		health = 0
 	emit_signal("hurt", damage, health)
 	if health <= 0:
-		dying = true
+		dying = true		
 		$AnimationPlayer.play("Die")
 	else:
 		stunned = true
@@ -174,16 +179,22 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		"Respawn":
 			loading = false
 		"Die":
+			max_health -= hearts_added
+			max_crystals -= crystals_added
+			hearts_added = 0
+			crystals_added = 0
 			emit_signal("death")
 
 func increment_hearts():
 	max_health += 2
 	health += 2
+	hearts_added += 1
 	emit_signal("health_increase", health, max_health)
 
 func increment_crystals():
 	max_crystals += 1
 	crystals += 1
+	crystals_added += 1
 	emit_signal("crystals_increase", crystals, max_crystals)
 
 func heal(amount):

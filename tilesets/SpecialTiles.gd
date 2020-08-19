@@ -1,7 +1,7 @@
 extends TileMap
 
-export var cancelBulletCollider : PackedScene
-export var cancelCrystalCollider : PackedScene
+export var cancelBulletCollider : PackedScene = preload("res://tilesets/tiles/CancelBullet.tscn")
+export var cancelCrystalCollider : PackedScene = preload("res://tilesets/tiles/CancelCrystal.tscn")
 
 func _ready():
 	var cancelBulletId = tile_set.find_tile_by_name("CancelBullet")
