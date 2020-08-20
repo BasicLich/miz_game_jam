@@ -1,12 +1,13 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://music/12 final battle.ogg" type="AudioStream" id=1]
 [ext_resource path="res://levels/Gateway.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/Level0.gd" type="Script" id=3]
 [ext_resource path="res://tilesets/general.tres" type="TileSet" id=4]
 [ext_resource path="res://entities/ai/PatrolAI.tscn" type="PackedScene" id=5]
-[ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/enemies/Ghost.tscn" type="PackedScene" id=6]
 [ext_resource path="res://tilesets/GeneralTiles.gd" type="Script" id=7]
+[ext_resource path="res://entities/enemies/Boss.tscn" type="PackedScene" id=8]
 [ext_resource path="res://entities/pickups/CrystalPickup.tscn" type="PackedScene" id=9]
 [ext_resource path="res://entities/pickups/HeartPickup.tscn" type="PackedScene" id=10]
 [ext_resource path="res://entities/pickups/Apple.tscn" type="PackedScene" id=11]
@@ -70,7 +71,7 @@ position = Vector2( 1660, 1082 )
 position = Vector2( 1751, 1082 )
 
 [node name="CrystalPickup5" parent="Pickups" instance=ExtResource( 9 )]
-position = Vector2( 607, 632 )
+position = Vector2( 69, 708 )
 
 [node name="CrystalPickup6" parent="Pickups" instance=ExtResource( 9 )]
 position = Vector2( 908, 632 )
@@ -226,6 +227,9 @@ position = Vector2( 1450, 2679 )
 
 [node name="PatrolAI" parent="Enemies/Enemy21" instance=ExtResource( 5 )]
 position = Vector2( -1, -6 )
+
+[node name="Boss" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 214, 743 )
 
 [node name="PlayerSpawn" type="Position2D" parent="."]
 position = Vector2( -41, 301 )

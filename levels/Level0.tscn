@@ -5,7 +5,7 @@
 [ext_resource path="res://levels/Level0.gd" type="Script" id=3]
 [ext_resource path="res://tilesets/general.tres" type="TileSet" id=4]
 [ext_resource path="res://entities/ai/PatrolAI.tscn" type="PackedScene" id=5]
-[ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/enemies/Ghost.tscn" type="PackedScene" id=6]
 [ext_resource path="res://tilesets/GeneralTiles.gd" type="Script" id=7]
 [ext_resource path="res://tilesets/text.tres" type="TileSet" id=8]
 [ext_resource path="res://entities/pickups/CrystalPickup.tscn" type="PackedScene" id=9]
@@ -15,6 +15,7 @@
 [ext_resource path="res://tilesets/platforms.tres" type="TileSet" id=13]
 [ext_resource path="res://tilesets/special.tres" type="TileSet" id=14]
 [ext_resource path="res://tilesets/SpecialTiles.gd" type="Script" id=17]
+
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 3 )
