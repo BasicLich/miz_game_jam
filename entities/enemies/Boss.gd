@@ -4,8 +4,8 @@ export var damage := 2
 export var health := 10
 export var knockback_strength := 300
 export var friction := 10
-export var max_speed := 80
-export var speed := 50
+export var max_speed := 50
+export var speed := 20
 
 var velocity := Vector2.ZERO
 var stunned := false
@@ -30,7 +30,6 @@ func _physics_process(_delta):
 	
 	if not stunned:
 		velocity.x = clamp(velocity.x, -max_speed, max_speed)
-	if not stunned:
 		velocity.y = clamp(velocity.y, -max_speed, max_speed)
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
