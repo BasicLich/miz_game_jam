@@ -684,5 +684,10 @@ one_shot = true
 
 [node name="BulletPool" type="Node" parent="."]
 script = ExtResource( 11 )
+
+[node name="DashCool" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
 [connection signal="timeout" from="Knockback" to="." method="_on_Knockback_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="DashCool" to="." method="_on_DashCool_timeout"]

@@ -33,8 +33,9 @@ var loading := true
 var dying := false
 var jumped := false
 var double_jumped := false
-var dashed := false
+var dashing := false
 var spent_dash := false
+var dash_direction := 1
 
 var hearts_added := 0
 var crystals_added := 0
@@ -49,9 +50,10 @@ func spawn():
 	loading = true
 	dying = false
 	jumped = false
-	dashed = false
+	dashing = false
 	spent_dash = false
 	double_jumped = false
+	dash_direction = 1
 	hearts_added = 0
 	crystals_added = 0
 	health = max_health
@@ -107,7 +109,7 @@ func _physics_process(_delta):
 		double_jumped = false
 		spent_dash = false
 	
-	var dash = not dashed and not spent_dash and Input.is_action_just_pressed("dash")
+	var dash = not dashing and not spent_dash and Input.is_action_just_pressed("dash")
 	var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var jump = Input.is_action_just_pressed("jump") and $GroundCheck.is_colliding()
 	var double_jump = can_double_jump and Input.is_action_just_pressed("jump") and not $GroundCheck.is_colliding() and not double_jumped
@@ -122,7 +124,8 @@ func _physics_process(_delta):
 		$SFX/Hurt.play()
 		$AnimationPlayer.stop()
 		$AnimatedSprite.modulate = Color.white
-	elif dash or dashed:
+	elif dash or dashing:
+		dash_direction = -1 if $AnimatedSprite.flip_h else 1
 		$AnimationPlayer.play("Dash")
 	elif not is_on_floor():
 		$AnimatedSprite.play("fall")
@@ -139,14 +142,13 @@ func _physics_process(_delta):
 	
 	if not stunned:
 		if dash:
-			velocity.x = -jump_impulse if $AnimatedSprite.flip_h else jump_impulse
+			velocity.x += jump_impulse * dash_direction
 			spent_dash = true
-			dashed = true
-		elif dashed:
-			velocity.x += gravity if $AnimatedSprite.flip_h else -gravity
-			if abs(velocity.x) < speed:
-				dashed = false
-				$AnimatedSprite.modulate = Color.white
+			dashing = true
+			$DashCool.start()
+		elif dashing and abs(velocity.x) > speed:
+			velocity.x -= dash_direction * gravity
+			velocity.y = 0
 		else:
 			velocity.x = direction * speed
 		if jump:
@@ -156,9 +158,9 @@ func _physics_process(_delta):
 			double_jumped = true
 			velocity.y = -double_jump_impulse
 			$SFX/Jump.play()
-		elif not dashed:
+		elif not dashing:
 			velocity.y = clamp(velocity.y + gravity, -max_fall_speed, max_fall_speed)
-	else:
+	elif not dashing:
 		velocity.y = clamp(velocity.y + gravity, -max_fall_speed, max_fall_speed)
 	
 	if is_on_floor():
@@ -175,15 +177,15 @@ func restore_crystal():
 	emit_signal("cast", crystals)
 
 func hit(damage, from):
-	if dashed:
-		dashed = false
-		$AnimatedSprite.modulate = Color.white
+	if not $Knockback.is_stopped():
+		return
 	health -= damage
+	print("hurt: " + str(damage) + ", health: " + str(health) + "/" + str(max_health))
 	if health < 0: 
 		health = 0
 	emit_signal("hurt", damage, health)
 	if health <= 0:
-		dying = true		
+		dying = true
 		$AnimationPlayer.play("Die")
 	else:
 		stunned = true
@@ -246,3 +248,8 @@ func change_scene(next_level):
 	$Camera2D.smoothing_enabled = false
 	$Camera2D.align()
 	emit_signal("change_level", next_level)
+
+
+func _on_DashCool_timeout():
+	$AnimatedSprite.modulate = Color.white
+	dashing = false
