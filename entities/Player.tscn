@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://sfx/sfx_deathscream_alien6.wav" type="AudioStream" id=1]
 [ext_resource path="res://sfx/sfx_movement_jump1.wav" type="AudioStream" id=2]
@@ -25,32 +25,32 @@ region = Rect2( 374, 119, 17, 17 )
 [sub_resource type="AtlasTexture" id=3]
 flags = 1
 atlas = ExtResource( 9 )
-region = Rect2( 357, 119, 17, 17 )
+region = Rect2( 306, 119, 17, 17 )
 
 [sub_resource type="AtlasTexture" id=4]
 flags = 1
 atlas = ExtResource( 9 )
-region = Rect2( 306, 119, 17, 17 )
+region = Rect2( 323, 119, 17, 17 )
 
 [sub_resource type="AtlasTexture" id=5]
 flags = 1
 atlas = ExtResource( 9 )
-region = Rect2( 323, 119, 17, 17 )
+region = Rect2( 340, 119, 17, 17 )
 
 [sub_resource type="AtlasTexture" id=6]
 flags = 1
 atlas = ExtResource( 9 )
-region = Rect2( 340, 119, 17, 17 )
+region = Rect2( 357, 119, 17, 17 )
 
 [sub_resource type="AtlasTexture" id=7]
 flags = 1
 atlas = ExtResource( 9 )
-region = Rect2( 357, 119, 17, 17 )
+region = Rect2( 374, 119, 17, 17 )
 
 [sub_resource type="AtlasTexture" id=8]
 flags = 1
 atlas = ExtResource( 9 )
-region = Rect2( 374, 119, 17, 17 )
+region = Rect2( 357, 119, 17, 17 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
@@ -69,19 +69,77 @@ animations = [ {
 "name": "hurt",
 "speed": 16.0
 }, {
-"frames": [ SubResource( 3 ) ],
-"loop": false,
-"name": "fall",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "run",
 "speed": 16.0
+}, {
+"frames": [ SubResource( 8 ) ],
+"loop": false,
+"name": "fall",
+"speed": 5.0
 } ]
 
 [sub_resource type="CircleShape2D" id=10]
 radius = 6.0
+
+[sub_resource type="Animation" id=16]
+resource_name = "Dash"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimatedSprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "fall", false ],
+"method": "play"
+} ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("AnimatedSprite:modulate:r")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("AnimatedSprite:modulate:g")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("AnimatedSprite:modulate:b")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("AnimatedSprite:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
 
 [sub_resource type="Animation" id=11]
 resource_name = "Die"
@@ -549,7 +607,6 @@ collision_mask = 235
 script = ExtResource( 8 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-visible = false
 frames = SubResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -571,6 +628,7 @@ wait_time = 0.4
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Dash = SubResource( 16 )
 anims/Die = SubResource( 11 )
 anims/Leave = SubResource( 12 )
 anims/Respawn = SubResource( 13 )
@@ -581,19 +639,15 @@ anims/Walking = SubResource( 15 )
 visible = false
 
 [node name="BlueCrystalNW" type="Sprite" parent="Spawn"]
-position = Vector2( -16, -16 )
 texture = ExtResource( 7 )
 
 [node name="BlueCrystalNE" type="Sprite" parent="Spawn"]
-position = Vector2( 16, -16 )
 texture = ExtResource( 7 )
 
 [node name="BlueCrystalSW" type="Sprite" parent="Spawn"]
-position = Vector2( -16, 16 )
 texture = ExtResource( 7 )
 
 [node name="BlueCrystalSE" type="Sprite" parent="Spawn"]
-position = Vector2( 16, 16 )
 texture = ExtResource( 7 )
 
 [node name="SFX" type="Node2D" parent="."]
