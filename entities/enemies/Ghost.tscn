@@ -91,7 +91,7 @@ shape = SubResource( 4 )
 anims/default = SubResource( 5 )
 anims/die = SubResource( 6 )
 
-[node name="SFX" type="Node" parent="."]
+[node name="SFX" type="Node2D" parent="."]
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 3 )

@@ -5,31 +5,30 @@
 [ext_resource path="res://sfx/sfx_wpn_punch4.wav" type="AudioStream" id=3]
 [ext_resource path="res://entities/enemies/BouncingSkull.gd" type="Script" id=4]
 
-[sub_resource type="PhysicsMaterial" id=7]
+[sub_resource type="PhysicsMaterial" id=1]
 friction = 0.0
 bounce = 1.0
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=2]
 flags = 1
 atlas = ExtResource( 1 )
 region = Rect2( 544, 0, 17, 17 )
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 1 ) ],
+"frames": [ SubResource( 2 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=4]
 radius = 8.0
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=5]
 radius = 6.0
 
-[sub_resource type="Animation" id=5]
-resource_name = "default"
+[sub_resource type="Animation" id=6]
 length = 0.5
 loop = true
 step = 0.25
@@ -44,8 +43,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.25, 0.5 )
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "die"
+[sub_resource type="Animation" id=7]
 length = 0.4
 step = 0.2
 tracks/0/type = "bezier"
@@ -63,7 +61,7 @@ tracks/0/keys = {
 position = Vector2( 0, 1.07341 )
 collision_layer = 0
 collision_mask = 51
-physics_material_override = SubResource( 7 )
+physics_material_override = SubResource( 1 )
 gravity_scale = 0.0
 linear_velocity = Vector2( 90, 90 )
 linear_damp = 0.0
@@ -73,23 +71,23 @@ script = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 modulate = Color( 1, 0, 0, 1 )
-frames = SubResource( 2 )
+frames = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/default = SubResource( 5 )
-anims/die = SubResource( 6 )
+anims/default = SubResource( 6 )
+anims/die = SubResource( 7 )
 
-[node name="SFX" type="Node" parent="."]
+[node name="SFX" type="Node2D" parent="."]
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 2 )

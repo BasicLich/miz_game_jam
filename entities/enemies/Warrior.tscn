@@ -5,26 +5,26 @@
 [ext_resource path="res://sfx/sfx_wpn_punch4.wav" type="AudioStream" id=3]
 [ext_resource path="res://entities/enemies/Warrior.gd" type="Script" id=4]
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=1]
 flags = 1
 atlas = ExtResource( 1 )
 region = Rect2( 527, 102, 17, 17 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ SubResource( 2 ) ],
+"frames": [ SubResource( 1 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=3]
 radius = 8.0
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=4]
 radius = 6.0
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 length = 0.5
 loop = true
 step = 0.125
@@ -39,7 +39,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5 )
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 length = 0.4
 step = 0.2
 tracks/0/type = "bezier"
@@ -65,23 +65,23 @@ speed = 70
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 modulate = Color( 1, 0, 0, 1 )
 rotation = 0.0990113
-frames = SubResource( 3 )
+frames = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/default = SubResource( 6 )
-anims/die = SubResource( 7 )
+anims/default = SubResource( 5 )
+anims/die = SubResource( 6 )
 
-[node name="SFX" type="Node" parent="."]
+[node name="SFX" type="Node2D" parent="."]
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 2 )

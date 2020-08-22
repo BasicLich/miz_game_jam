@@ -94,6 +94,7 @@ func _physics_process(_delta):
 		instance.player = self
 		$CrystalTowers.add_child(instance)
 		$CastCooldown.start()
+		$SFX/Cast.play()
 	
 	if Input.is_action_pressed("attack") and $ShootCooldown.is_stopped():
 		var instances = []
@@ -129,6 +130,7 @@ func _physics_process(_delta):
 		$AnimatedSprite.modulate = Color.white
 	elif dash or dashing:
 		dash_direction = -1 if $AnimatedSprite.flip_h else 1
+		$SFX/Dash.play()
 		$AnimationPlayer.play("Dash")
 	elif not is_on_floor():
 		$AnimatedSprite.play("fall")

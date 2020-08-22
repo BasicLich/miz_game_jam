@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://sfx/sfx_deathscream_alien6.wav" type="AudioStream" id=1]
 [ext_resource path="res://sfx/sfx_movement_jump1.wav" type="AudioStream" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://1bitpack_kenney_1.1/Tilesheet/colored_transparent.png" type="Texture" id=9]
 [ext_resource path="res://sfx/sfx_wpn_laser8.wav" type="AudioStream" id=10]
 [ext_resource path="res://entities/BulletPool.gd" type="Script" id=11]
+[ext_resource path="res://sfx/sfx_movement_jump8.wav" type="AudioStream" id=12]
+[ext_resource path="res://sfx/sfx_wpn_cannon4.wav" type="AudioStream" id=13]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 1
@@ -674,8 +676,16 @@ stream = ExtResource( 4 )
 [node name="Die" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 5 )
 
+[node name="Dash" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource( 12 )
+volume_db = -5.0
+
 [node name="Spawn" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource( 3 )
+volume_db = -10.0
+
+[node name="Cast" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource( 13 )
 volume_db = -10.0
 
 [node name="Hurt" type="AudioStreamPlayer2D" parent="SFX"]

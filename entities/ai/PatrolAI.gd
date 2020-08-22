@@ -12,7 +12,7 @@ func _physics_process(_delta):
 				facing_left = !facing_left
 			scale.x *= -1
 		
-		if $WallCheck.is_colliding() or not $FallCheck.is_colliding():
+		if $WallCheck.is_colliding() or (not $FallCheck.is_colliding() and not $FallCheck2.is_colliding()):
 			facing_left = !facing_left
 			scale.x *= -1
 		

@@ -57,12 +57,14 @@ func hit(amount, from):
 		speed *= 1.25
 	
 	if health <= 0:
+		$SFX/Die.play()
 		$CollisionShape2D.set_deferred("disabled", true)
 		$Area2D/CollisionPolygon2D.set_deferred("disabled", true)
 		$Area2D/CollisionPolygon2D2.set_deferred("disabled", true)
 		$Torso/Head/Area2D/CollisionShape2D.set_deferred("disabled", true)
 		queue_free()
 	else:
+		$SFX/Hit.play()
 		$Timer.start()
 		$AnimationPlayer.play("hurt")
 		yield($AnimationPlayer, "animation_finished")
