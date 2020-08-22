@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://music/12 final battle.ogg" type="AudioStream" id=1]
 [ext_resource path="res://levels/Gateway.tscn" type="PackedScene" id=2]
@@ -7,12 +7,22 @@
 [ext_resource path="res://entities/ai/PatrolAI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/enemies/Ghost.tscn" type="PackedScene" id=6]
 [ext_resource path="res://tilesets/GeneralTiles.gd" type="Script" id=7]
+[ext_resource path="res://entities/enemies/BouncingSkull.tscn" type="PackedScene" id=8]
 [ext_resource path="res://entities/pickups/CrystalPickup.tscn" type="PackedScene" id=9]
+[ext_resource path="res://entities/ai/JumpAI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://entities/enemies/Warrior.tscn" type="PackedScene" id=11]
 [ext_resource path="res://levels/Level2.tscn" type="PackedScene" id=12]
 [ext_resource path="res://tilesets/platforms.tres" type="TileSet" id=13]
 [ext_resource path="res://tilesets/text.tres" type="TileSet" id=14]
 [ext_resource path="res://tilesets/special.tres" type="TileSet" id=15]
 [ext_resource path="res://tilesets/SpecialTiles.gd" type="Script" id=16]
+[ext_resource path="res://entities/ai/AvoidWallsSeekPlayerAI.tscn" type="PackedScene" id=17]
+[ext_resource path="res://entities/enemies/Boss.tscn" type="PackedScene" id=18]
+
+[sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 315, 420, 316, 472, 59, 472, 58, 420 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 58, 420, 59, 472, 316, 472, 315, 420 ) ]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 3 )
@@ -70,6 +80,23 @@ position = Vector2( 362, 486 )
 
 [node name="PatrolAI" parent="Enemies/Enemy2" instance=ExtResource( 5 )]
 
+[node name="Warrior" parent="Enemies" instance=ExtResource( 11 )]
+position = Vector2( 319, 117 )
+
+[node name="JumpAI" parent="Enemies/Warrior" instance=ExtResource( 10 )]
+
+[node name="PatrolAI" parent="Enemies/Warrior" instance=ExtResource( 5 )]
+chance_change = 0.5
+
+[node name="Boss" parent="Enemies" instance=ExtResource( 18 )]
+position = Vector2( 175, 447 )
+
+[node name="AvoidWallsSeekPlayerAI" parent="Enemies/Boss" instance=ExtResource( 17 )]
+navigation = NodePath("../../../Navigation2D")
+
+[node name="BouncingSkull" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 371, 194 )
+
 [node name="PlayerSpawn" type="Position2D" parent="."]
 position = Vector2( 146, 87 )
 
@@ -77,3 +104,8 @@ position = Vector2( 146, 87 )
 position = Vector2( 584, 585 )
 next_level = ExtResource( 12 )
 start_enabled = true
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 1 )
