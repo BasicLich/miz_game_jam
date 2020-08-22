@@ -83,10 +83,10 @@ func refresh_crystals(crystals):
 func __on_Player_die():
 	call_deferred("restart")
 
-#func __on_Player_spawn():
-#	if $AudioStreamPlayer.stream != level.music:
-#		$AudioStreamPlayer.stream = level.music
-#		$AudioStreamPlayer.play()
+func __on_Player_spawn():
+	if $AudioStreamPlayer.stream != level.music:
+		$AudioStreamPlayer.stream = level.music
+		$AudioStreamPlayer.play()
 
 func restart():
 	load_level(level_scene)

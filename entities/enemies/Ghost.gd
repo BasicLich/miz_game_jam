@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal die
+
 export var damage := 1
 export var health := 2
 export var knockback_strength := 300
@@ -46,7 +48,8 @@ func hit(amount, from):
 		$Area2D/CollisionShape2D.set_deferred("disabled", true)
 		velocity.y = 10
 		$SFX/Die.play()
-		$AnimationPlayer.play("die")
+		emit_signal("die")
+		$AnimationPlayer.play("die")		
 		yield($AnimationPlayer, "animation_finished")
 		queue_free()
 	else:

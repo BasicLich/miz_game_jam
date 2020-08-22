@@ -3,10 +3,12 @@ extends Area2D
 class_name Gateway
 
 export var next_level : PackedScene
+export var start_enabled := false
 
 func _ready():
-	$CollisionShape2D.set_deferred("disabled", true)
-	$Sprite.visible = false
+	if not start_enabled:
+		$CollisionShape2D.set_deferred("disabled", true)
+		$Sprite.visible = false
 
 func enable():
 	$CollisionShape2D.set_deferred("disabled", false)
