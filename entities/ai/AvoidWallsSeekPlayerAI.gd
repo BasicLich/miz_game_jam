@@ -29,3 +29,4 @@ func _on_Timer_timeout():
 func _on_Area2D_body_entered(body):
 	if body is Player:
 		set_physics_process(true)
+		$Timer.start()

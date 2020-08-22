@@ -63,6 +63,7 @@ func spawn():
 	$AnimatedSprite.play("default")
 	$Knockback.stop()
 	$ShootCooldown.stop()
+	$CastCooldown.stop()
 	$BulletPool.refresh()
 	for child in $CrystalTowers.get_children():
 		child.queue_free()
@@ -85,14 +86,14 @@ func _physics_process(_delta):
 	elif Input.is_action_just_released("down"):
 		set_collision_mask_bit(5, true)
 	
-	if Input.is_action_pressed("cast") and crystals > 0 and $ShootCooldown.is_stopped():
+	if Input.is_action_pressed("cast") and crystals > 0 and $CastCooldown.is_stopped():
 		crystals -= 1
 		emit_signal("cast", crystals)
 		var instance = crystal_tower.instance()
 		instance.global_position = global_position
 		instance.player = self
 		$CrystalTowers.add_child(instance)
-		$ShootCooldown.start()
+		$CastCooldown.start()
 	
 	if Input.is_action_pressed("attack") and $ShootCooldown.is_stopped():
 		var instances = []
@@ -113,7 +114,7 @@ func _physics_process(_delta):
 	
 	var dash = not dashing and not spent_dash and Input.is_action_just_pressed("dash")
 	var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
-	var jump = Input.is_action_just_pressed("jump") and $GroundCheck.is_colliding()
+	var jump = Input.is_action_just_pressed("jump") and ($GroundCheck.is_colliding() or not $JumpOpportunity.is_stopped())
 	var double_jump = can_double_jump and Input.is_action_just_pressed("jump") and not $GroundCheck.is_colliding() and not double_jumped
 	
 	if direction < 0:
@@ -167,12 +168,19 @@ func _physics_process(_delta):
 	elif not dashing:
 		velocity.y = clamp(velocity.y + gravity, -max_fall_speed, max_fall_speed)
 	
+	var jumpable = $GroundCheck.is_colliding()
+	
 	if is_on_floor():
-		velocity = move_and_slide_with_snap(velocity, Vector2(0, 3), Vector2.UP)
+		velocity = move_and_slide_with_snap(velocity, Vector2(0, 3), Vector2.UP)		
 	else:
 		velocity = move_and_slide(velocity, Vector2.UP)
 		if is_on_floor():
 			$SFX/Land.play()
+	
+	if jumpable:
+		$GroundCheck.force_raycast_update()
+		if not $GroundCheck.is_colliding():
+			$JumpOpportunity.start()
 
 func restore_crystal():
 	crystals += 1
@@ -220,7 +228,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func increment_hearts():
 	max_health += 2
 	health += 2
-	hearts_added += 1
+	hearts_added += 2
 	emit_signal("health_increase", health, max_health)
 
 func increment_crystals():
@@ -246,6 +254,7 @@ func change_scene(next_level):
 	$AnimationPlayer.stop()
 	$Knockback.stop()
 	$ShootCooldown.stop()
+	$CastCooldown.stop()
 	$BulletPool.refresh()
 	for child in $CrystalTowers.get_children():
 		child.queue_free()

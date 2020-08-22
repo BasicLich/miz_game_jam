@@ -1,14 +1,18 @@
 extends KinematicBody2D
 
 export var damage := 2
-export var health := 10
+export var health := 100
 export var knockback_strength := 300
 export var friction := 10
-export var max_speed := 50
-export var speed := 20
+export var max_speed := 200
+export var speed := 30
 
 var velocity := Vector2.ZERO
 var stunned := false
+var boost1 := false
+var boost2 := false
+
+onready var initial_health := health
 
 func _ready():
 	$AnimationPlayer.play("default")
@@ -39,12 +43,18 @@ func _on_Area2D_body_entered(body):
 		body.hit(damage, global_position)
 
 func hit(amount, from):
-	print("HIT!")
 	velocity = (global_position - from).normalized() * knockback_strength
 	stunned = true
 	health -= amount
 	if health < 0:
 		health = 0
+	
+	if not boost1 and health < initial_health/2:
+		boost1 = true
+		speed *= 1.25
+	if not boost2 and health < initial_health/4:
+		boost2 = true
+		speed *= 1.25
 	
 	if health <= 0:
 		$CollisionShape2D.set_deferred("disabled", true)
@@ -54,6 +64,9 @@ func hit(amount, from):
 		queue_free()
 	else:
 		$Timer.start()
+		$AnimationPlayer.play("hurt")
+		yield($AnimationPlayer, "animation_finished")
+		$AnimationPlayer.play("default")
 
 
 func _on_Timer_timeout():

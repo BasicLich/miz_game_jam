@@ -9,7 +9,6 @@ radius = 205.022
 script = ExtResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
-autostart = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2048

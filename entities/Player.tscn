@@ -684,11 +684,19 @@ stream = ExtResource( 10 )
 wait_time = 0.25
 one_shot = true
 
+[node name="CastCooldown" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
 [node name="BulletPool" type="Node" parent="."]
 script = ExtResource( 11 )
 
 [node name="DashCool" type="Timer" parent="."]
 wait_time = 0.3
+one_shot = true
+
+[node name="JumpOpportunity" type="Timer" parent="."]
+wait_time = 0.4
 one_shot = true
 [connection signal="timeout" from="Knockback" to="." method="_on_Knockback_timeout"]
 [connection signal="timeout" from="Invulnerable" to="." method="_on_Invulnerable_timeout"]
