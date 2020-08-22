@@ -92,7 +92,9 @@ func __on_Player_die():
 	call_deferred("restart")
 
 func __on_Player_spawn():
-	if $AudioStreamPlayer.stream != level.music:
+	print("Level Music: " + str(level.music))
+	print("Current Music: " + str($AudioStreamPlayer.stream))
+	if not $AudioStreamPlayer.playing or $AudioStreamPlayer.stream != level.music:
 		$AudioStreamPlayer.stream = level.music
 		$AudioStreamPlayer.play()
 
@@ -130,6 +132,7 @@ func _on_MainMenu_start():
 
 
 func _on_MainMenu_stop():
+	$HUD/MarginContainer.visible = false
 	$AudioStreamPlayer.stop()
 	$AudioStreamPlayer.stream = null
 	

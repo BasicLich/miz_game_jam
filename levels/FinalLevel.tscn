@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://levels/Gateway.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://entities/ai/AvoidWallsSeekPlayerAI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/pickups/Apple.tscn" type="PackedScene" id=6]
 [ext_resource path="res://tilesets/GeneralTiles.gd" type="Script" id=7]
+[ext_resource path="res://music/final_boss.ogg" type="AudioStream" id=8]
 [ext_resource path="res://tilesets/platforms.tres" type="TileSet" id=13]
 [ext_resource path="res://tilesets/text.tres" type="TileSet" id=14]
 [ext_resource path="res://tilesets/special.tres" type="TileSet" id=15]
@@ -19,6 +20,7 @@ outlines = [ PoolVector2Array( 4156, 640, 4422, 643, 4583, 697, 4746, 823, 4803,
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
+music = ExtResource( 8 )
 
 [node name="SpecialTiles" type="TileMap" parent="."]
 modulate = Color( 0.392157, 1, 0, 1 )

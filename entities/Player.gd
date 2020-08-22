@@ -218,6 +218,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			loading = false
 		"Respawn":
 			loading = false
+			emit_signal("spawn")
 		"Die":
 			max_health -= hearts_added
 			max_crystals -= crystals_added
