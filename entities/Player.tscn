@@ -83,7 +83,7 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=10]
 radius = 6.0
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=11]
 resource_name = "Dash"
 length = 0.5
 tracks/0/type = "method"
@@ -141,8 +141,7 @@ tracks/4/keys = {
 "times": PoolRealArray(  )
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "Die"
+[sub_resource type="Animation" id=12]
 length = 0.5
 step = 0.5
 tracks/0/type = "bezier"
@@ -276,8 +275,7 @@ tracks/11/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "Leave"
+[sub_resource type="Animation" id=13]
 step = 0.5
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("AnimatedSprite:scale:x")
@@ -300,7 +298,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 )
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 length = 0.5
 step = 0.5
 tracks/0/type = "bezier"
@@ -434,7 +432,7 @@ tracks/11/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=15]
 step = 0.5
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Spawn/BlueCrystalNW:position:x")
@@ -581,7 +579,7 @@ tracks/12/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=16]
 length = 0.25
 loop = true
 step = 0.3
@@ -627,13 +625,17 @@ collision_mask = 33
 wait_time = 0.4
 one_shot = true
 
+[node name="Invulnerable" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Dash = SubResource( 16 )
-anims/Die = SubResource( 11 )
-anims/Leave = SubResource( 12 )
-anims/Respawn = SubResource( 13 )
-anims/Spawn = SubResource( 14 )
-anims/Walking = SubResource( 15 )
+anims/Dash = SubResource( 11 )
+anims/Die = SubResource( 12 )
+anims/Leave = SubResource( 13 )
+anims/Respawn = SubResource( 14 )
+anims/Spawn = SubResource( 15 )
+anims/Walking = SubResource( 16 )
 
 [node name="Spawn" type="Node2D" parent="."]
 visible = false
@@ -689,5 +691,6 @@ script = ExtResource( 11 )
 wait_time = 0.3
 one_shot = true
 [connection signal="timeout" from="Knockback" to="." method="_on_Knockback_timeout"]
+[connection signal="timeout" from="Invulnerable" to="." method="_on_Invulnerable_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="DashCool" to="." method="_on_DashCool_timeout"]

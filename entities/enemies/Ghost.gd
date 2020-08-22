@@ -37,6 +37,8 @@ func _on_Area2D_body_entered(body):
 		body.hit(damage, global_position)
 
 func hit(amount, from):
+	if health <= 0:
+		return
 	velocity = (global_position - from).normalized() * knockback_strength
 	stunned = true
 	health -= amount
@@ -49,7 +51,7 @@ func hit(amount, from):
 		velocity.y = 10
 		$SFX/Die.play()
 		emit_signal("die")
-		$AnimationPlayer.play("die")		
+		$AnimationPlayer.play("die")
 		yield($AnimationPlayer, "animation_finished")
 		queue_free()
 	else:

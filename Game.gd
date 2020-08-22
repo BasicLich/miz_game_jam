@@ -2,8 +2,9 @@ extends Node
 
 export var first_level : PackedScene
 
-onready var health_bar := $HUD/MarginContainer/HBoxContainer/HealthBar
-onready var crystal_bar := $HUD/MarginContainer/HBoxContainer/CrystalBar
+onready var health_bar := $HUD/MarginContainer/VBoxContainer/HBoxContainer/HealthBar
+onready var crystal_bar := $HUD/MarginContainer/VBoxContainer/HBoxContainer/CrystalBar
+onready var enemy_progress := $HUD/MarginContainer/VBoxContainer/HBoxContainer2/Label
 
 var heart_scene := preload("res://entities/Heart.tscn")
 var crystal_scene := preload("res://entities/Crystal.tscn")
@@ -14,6 +15,9 @@ onready var player : Player = player_scene.instance()
 var level_scene: PackedScene
 var level : Level
 
+func __on_Level_enemy_died(remaining, total):
+	enemy_progress.text = str(remaining) + "/" + str(total)
+
 func load_level(scene):
 	level = scene.instance()
 	
@@ -21,11 +25,13 @@ func load_level(scene):
 		$CurrentLevel.remove_child(i)
 		i.queue_free()
 	
+	level.connect("enemy_died", self, "__on_Level_enemy_died")
+	
 	$CurrentLevel.add_child(level)
 	player.global_position = level.player_spawn.global_position
 	player.health = player.max_health
 	player.crystals = player.max_crystals
-	reset()
+	reset()	
 	player.call_deferred("spawn")
 
 func _ready():
@@ -60,6 +66,8 @@ func reset():
 	
 	refresh_health(player.health)
 	refresh_crystals(player.crystals)
+	
+	enemy_progress.text = str(level.remaining_enemies) + "/" + str(level.total_enemies)
 
 func refresh_health(health):
 	if health_bar.get_child_count() > 0:

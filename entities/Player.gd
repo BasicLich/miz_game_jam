@@ -29,6 +29,7 @@ export var can_double_jump := true
 
 var velocity := Vector2.ZERO
 var stunned := false
+var invulnerable := false
 var loading := true
 var dying := false
 var jumped := false
@@ -46,6 +47,7 @@ func _ready():
 func spawn():
 	$AnimatedSprite.scale = Vector2(1, 1)
 	stunned = false
+	invulnerable = false
 	velocity = Vector2.ZERO
 	loading = true
 	dying = false
@@ -151,10 +153,12 @@ func _physics_process(_delta):
 			velocity.y = 0
 		else:
 			velocity.x = direction * speed
+		
 		if jump:
 			velocity.y = -jump_impulse
 			$SFX/Jump.play()
 		elif double_jump:
+			dashing = false
 			double_jumped = true
 			velocity.y = -double_jump_impulse
 			$SFX/Jump.play()
@@ -177,7 +181,7 @@ func restore_crystal():
 	emit_signal("cast", crystals)
 
 func hit(damage, from):
-	if not $Knockback.is_stopped():
+	if invulnerable:
 		return
 	health -= damage
 	print("hurt: " + str(damage) + ", health: " + str(health) + "/" + str(max_health))
@@ -189,7 +193,9 @@ func hit(damage, from):
 		$AnimationPlayer.play("Die")
 	else:
 		stunned = true
+		invulnerable = true
 		$Knockback.start()
+		$Invulnerable.start()
 		velocity = (global_position - from).normalized()
 		velocity.x *= speed
 		velocity.y *= jump_impulse
@@ -253,3 +259,7 @@ func change_scene(next_level):
 func _on_DashCool_timeout():
 	$AnimatedSprite.modulate = Color.white
 	dashing = false
+
+
+func _on_Invulnerable_timeout():
+	invulnerable = false

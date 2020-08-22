@@ -6,6 +6,9 @@ onready var player: Player = get_node("/root/Game/Player")
 
 var path : PoolVector2Array = []
 
+func _ready():
+	set_physics_process(false)
+
 func _physics_process(delta):
 	if not get_parent().stunned and path and not path.empty():
 		var distance = get_parent().speed
@@ -21,3 +24,8 @@ func _physics_process(delta):
 
 func _on_Timer_timeout():
 	path = nav.get_simple_path(get_parent().global_position, player.global_position)
+
+
+func _on_Area2D_body_entered(body):
+	if body is Player:
+		set_physics_process(true)

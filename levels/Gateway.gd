@@ -8,11 +8,14 @@ export var start_enabled := false
 func _ready():
 	if not start_enabled:
 		$CollisionShape2D.set_deferred("disabled", true)
-		$Sprite.visible = false
+		$AnimatedSprite.play("closed")
+	else:
+		$CollisionShape2D.set_deferred("disabled", false)
+		$AnimatedSprite.play("open")
 
 func enable():
 	$CollisionShape2D.set_deferred("disabled", false)
-	$Sprite.visible = true
+	$AnimatedSprite.play("open")
 
 func _on_Gateway_body_entered(body):
 	if body is Player:

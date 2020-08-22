@@ -103,6 +103,7 @@ dash={
 2d_physics/layer_9="cancel_bullet"
 2d_physics/layer_10="cancel_crystal"
 2d_physics/layer_11="crystal"
+2d_physics/layer_12="player_detect"
 
 [rendering]
 

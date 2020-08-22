@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://levels/Level1.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.gd" type="Script" id=2]
 [ext_resource path="res://Menu/MainMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/Heart.tscn" type="PackedScene" id=4]
 [ext_resource path="res://entities/Crystal.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Menu/PressStart2P-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://textures/Enemy.tres" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 12
+font_data = ExtResource( 6 )
 
 [node name="Game" type="Node"]
 script = ExtResource( 2 )
@@ -20,29 +26,39 @@ transform = Transform2D( 2, 0, 0, 2, 0, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -512.0
+margin_bottom = -300.0
+rect_min_size = Vector2( 512, 300 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/MarginContainer"]
 margin_right = 512.0
-margin_bottom = 600.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 0, 300 )
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer/VBoxContainer"]
+margin_right = 512.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 0, 280 )
+size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 alignment = 1
 
-[node name="HealthBar" type="HBoxContainer" parent="HUD/MarginContainer/HBoxContainer"]
+[node name="HealthBar" type="HBoxContainer" parent="HUD/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 254.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 custom_constants/separation = -1
 
-[node name="Heart" parent="HUD/MarginContainer/HBoxContainer/HealthBar" instance=ExtResource( 4 )]
+[node name="Heart" parent="HUD/MarginContainer/VBoxContainer/HBoxContainer/HealthBar" instance=ExtResource( 4 )]
 margin_right = 16.0
 margin_bottom = 16.0
 rect_scale = Vector2( 1, 1 )
 
-[node name="CrystalBar" type="HBoxContainer" parent="HUD/MarginContainer/HBoxContainer"]
+[node name="CrystalBar" type="HBoxContainer" parent="HUD/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 258.0
 margin_right = 512.0
 margin_bottom = 16.0
@@ -52,11 +68,37 @@ size_flags_vertical = 0
 custom_constants/separation = -1
 alignment = 2
 
-[node name="Crystal" parent="HUD/MarginContainer/HBoxContainer/CrystalBar" instance=ExtResource( 5 )]
+[node name="Crystal" parent="HUD/MarginContainer/VBoxContainer/HBoxContainer/CrystalBar" instance=ExtResource( 5 )]
 margin_left = 238.0
 margin_right = 254.0
 margin_bottom = 16.0
 rect_scale = Vector2( 1, 1 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/MarginContainer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0.392157 )
+margin_top = 284.0
+margin_right = 512.0
+margin_bottom = 300.0
+grow_horizontal = 0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 432.0
+margin_top = 2.0
+margin_right = 492.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 1 )
+text = "10/10"
+align = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 496.0
+margin_right = 512.0
+margin_bottom = 16.0
+texture = ExtResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 

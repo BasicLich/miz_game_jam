@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Level
 
+signal enemy_died(remaining, total)
+
 export var music : AudioStream
 
 onready var gateway : Gateway = $Gateway
@@ -16,5 +18,8 @@ func _ready():
 
 func __on_Enemy_die():
 	remaining_enemies -= 1
+	if remaining_enemies < 0:
+		remaining_enemies = 0
+	emit_signal("enemy_died", remaining_enemies, total_enemies)
 	if remaining_enemies <= 0:
 		gateway.enable()
