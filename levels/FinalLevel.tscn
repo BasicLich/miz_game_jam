@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://levels/Level.gd" type="Script" id=1]
-[ext_resource path="res://levels/Gateway.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/FinalLevel.gd" type="Script" id=1]
+[ext_resource path="res://music/win.ogg" type="AudioStream" id=2]
 [ext_resource path="res://entities/enemies/Boss.tscn" type="PackedScene" id=3]
 [ext_resource path="res://tilesets/general.tres" type="TileSet" id=4]
 [ext_resource path="res://entities/ai/AvoidWallsSeekPlayerAI.tscn" type="PackedScene" id=5]
@@ -14,13 +14,14 @@
 [ext_resource path="res://tilesets/SpecialTiles.gd" type="Script" id=16]
 
 [sub_resource type="NavigationPolygon" id=1]
-vertices = PoolVector2Array( 4337, 677, 4422, 643, 4583, 697, 4555, 786, 4442, 784, 4156, 640, 4214, 673, 4383, 1193, 4319, 1199, 4161, 999, 4185, 930, 4435, 907, 4475, 944, 4559, 1029, 4563, 1104, 4746, 823, 4803, 963, 4699, 1001, 4603, 994, 4561, 904, 4800, 1188, 4714, 1312, 4701, 1133, 4530, 942, 4544, 1248, 4545, 1378, 4425, 1296, 4419, 1222, 4410, 1341, 4137, 1372, 4286, 1344, 4629, 1417, 4497, 1486, 4353, 1509, 4190, 1476, 4057, 1423, 4336, 797, 4213, 796, 4156, 849, 4636, 1378, 4018, 1378, 3942, 1346, 3998, 1341, 4280, 1237, 4132, 1246, 4037, 1083, 3878, 1108, 3868, 902, 3978, 747, 4011, 927, 4678, 1311, 4662, 1250, 4608, 1134, 4009, 1253, 3900, 1258, 4034, 1234, 4060, 1004, 4055, 850 )
-polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 1, 0, 6 ), PoolIntArray( 7, 8, 9, 10, 11, 12, 13, 14 ), PoolIntArray( 2, 15, 16, 17, 18, 19, 3 ), PoolIntArray( 16, 20, 21, 22, 17 ), PoolIntArray( 23, 19, 18, 13 ), PoolIntArray( 24, 25, 26, 27 ), PoolIntArray( 28, 26, 25 ), PoolIntArray( 29, 30, 28, 25, 31, 32, 33, 34, 35 ), PoolIntArray( 36, 0, 4, 11 ), PoolIntArray( 37, 36, 11, 10, 38 ), PoolIntArray( 25, 39, 31 ), PoolIntArray( 40, 29, 35 ), PoolIntArray( 40, 35, 41 ), PoolIntArray( 42, 40, 41 ), PoolIntArray( 43, 30, 29, 44, 9 ), PoolIntArray( 45, 46, 47, 48, 49 ), PoolIntArray( 22, 21, 50, 51 ), PoolIntArray( 52, 22, 51, 24 ), PoolIntArray( 14, 52, 24, 27, 7 ), PoolIntArray( 53, 42, 41, 54 ), PoolIntArray( 53, 54, 55, 44 ), PoolIntArray( 9, 44, 55, 45, 56 ), PoolIntArray( 12, 23, 13 ), PoolIntArray( 9, 8, 43 ), PoolIntArray( 48, 5, 6, 37, 38, 57 ), PoolIntArray( 48, 57, 49 ), PoolIntArray( 45, 49, 56 ) ]
-outlines = [ PoolVector2Array( 4156, 640, 4422, 643, 4583, 697, 4746, 823, 4803, 963, 4800, 1188, 4714, 1312, 4678, 1311, 4662, 1250, 4544, 1248, 4545, 1378, 4636, 1378, 4629, 1417, 4497, 1486, 4353, 1509, 4190, 1476, 4057, 1423, 3942, 1346, 3900, 1258, 4034, 1234, 4037, 1083, 3878, 1108, 3868, 902, 3978, 747 ), PoolVector2Array( 4055, 850, 4156, 849, 4185, 930, 4161, 999, 4060, 1004, 4011, 927 ), PoolVector2Array( 4214, 673, 4213, 796, 4336, 797, 4337, 677 ), PoolVector2Array( 4442, 784, 4435, 907, 4475, 944, 4530, 942, 4561, 904, 4555, 786 ), PoolVector2Array( 4603, 994, 4559, 1029, 4563, 1104, 4608, 1134, 4701, 1133, 4699, 1001 ), PoolVector2Array( 4319, 1199, 4383, 1193, 4419, 1222, 4425, 1296, 4410, 1341, 4286, 1344, 4280, 1237 ), PoolVector2Array( 4009, 1253, 4132, 1246, 4137, 1372, 4018, 1378, 3998, 1341 ) ]
+vertices = PoolVector2Array( 3998, 1125, 4604, 1095, 4671, 1095, 4636, 1287, 4588, 1287, 4380, 1237, 4449, 622, 4602, 659, 4792, 816, 4525, 824, 4473, 825, 4292, 753, 4291, 713, 4130, 613, 4251, 713, 4845, 920, 4837, 1215, 4707, 1373, 4666, 1031, 4522, 901, 4605, 1036, 4141, 970, 4475, 903, 4630, 1451, 4639, 1340, 4383, 1305, 4586, 1340, 4495, 1506, 4398, 1549, 4090, 1338, 4091, 1283, 4332, 1245, 4332, 1307, 4242, 1529, 3995, 1206, 4041, 1285, 4032, 1446, 4041, 1339, 3903, 1334, 3919, 1208, 3916, 1184, 3848, 1200, 3846, 1003, 4061, 888, 4058, 968, 3962, 1124, 3862, 861, 3975, 716, 4140, 886, 4251, 754 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5 ), PoolIntArray( 6, 7, 8, 9, 10, 11, 12 ), PoolIntArray( 13, 6, 12, 14 ), PoolIntArray( 15, 16, 17, 2, 18 ), PoolIntArray( 19, 15, 18, 20, 21, 22 ), PoolIntArray( 17, 23, 24, 2 ), PoolIntArray( 25, 5, 4, 26, 27, 28 ), PoolIntArray( 29, 30, 31, 32, 33 ), PoolIntArray( 26, 24, 23, 27 ), PoolIntArray( 2, 24, 3 ), PoolIntArray( 34, 0, 5, 31, 30, 35 ), PoolIntArray( 25, 28, 33, 32 ), PoolIntArray( 29, 33, 36, 37 ), PoolIntArray( 34, 35, 37, 36, 38, 39 ), PoolIntArray( 40, 39, 38, 41, 42 ), PoolIntArray( 43, 44, 45, 40, 42, 46, 47 ), PoolIntArray( 44, 21, 20, 1, 0, 45 ), PoolIntArray( 19, 9, 8, 15 ), PoolIntArray( 11, 10, 22, 21, 48, 49 ), PoolIntArray( 47, 13, 14, 49, 48, 43 ) ]
+outlines = [ PoolVector2Array( 4130, 613, 4449, 622, 4602, 659, 4792, 816, 4845, 920, 4837, 1215, 4707, 1373, 4630, 1451, 4495, 1506, 4398, 1549, 4242, 1529, 4032, 1446, 3903, 1334, 3848, 1200, 3846, 1003, 3862, 861, 3975, 716 ), PoolVector2Array( 4251, 713, 4251, 754, 4292, 753, 4291, 713 ), PoolVector2Array( 4473, 825, 4475, 903, 4522, 901, 4525, 824 ), PoolVector2Array( 4605, 1036, 4604, 1095, 4671, 1095, 4666, 1031 ), PoolVector2Array( 4061, 888, 4058, 968, 4141, 970, 4140, 886 ), PoolVector2Array( 3962, 1124, 3916, 1184, 3919, 1208, 3995, 1206, 3998, 1125 ), PoolVector2Array( 4041, 1285, 4041, 1339, 4090, 1338, 4091, 1283 ), PoolVector2Array( 4332, 1245, 4332, 1307, 4383, 1305, 4380, 1237 ), PoolVector2Array( 4588, 1287, 4586, 1340, 4639, 1340, 4636, 1287 ) ]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 music = ExtResource( 8 )
+win_music = ExtResource( 2 )
 
 [node name="SpecialTiles" type="TileMap" parent="."]
 modulate = Color( 0.392157, 1, 0, 1 )
@@ -94,11 +95,10 @@ navigation = NodePath("../../../Navigation2D")
 [node name="PlayerSpawn" type="Position2D" parent="."]
 position = Vector2( 4282, 1608 )
 
-[node name="Gateway" parent="." instance=ExtResource( 2 )]
-position = Vector2( 4423, 1609 )
-
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
-position = Vector2( -4, 0 )
+position = Vector2( -4, -1 )
 navpoly = SubResource( 1 )
+[connection signal="die" from="Enemies/Boss" to="." method="_on_Boss_die"]
+[connection signal="dying" from="Enemies/Boss" to="." method="_on_Boss_dying"]

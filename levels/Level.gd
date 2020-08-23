@@ -21,5 +21,5 @@ func __on_Enemy_die():
 	if remaining_enemies < 0:
 		remaining_enemies = 0
 	emit_signal("enemy_died", remaining_enemies, total_enemies)
-	if remaining_enemies <= 0:
+	if remaining_enemies <= 0 and gateway:
 		gateway.enable()

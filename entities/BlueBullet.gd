@@ -37,5 +37,5 @@ func _on_BlueBullet_body_entered(body):
 		get_parent().deallocate(self)
 
 
-func _on_BlueBullet_area_entered(area):
+func _on_BlueBullet_area_entered(_area):
 	get_parent().deallocate(self)

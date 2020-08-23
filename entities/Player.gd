@@ -229,18 +229,21 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			emit_signal("death")
 
 func increment_hearts():
+	$SFX/Pickup.play()
 	max_health += 2
 	health += 2
 	hearts_added += 2
 	emit_signal("health_increase", health, max_health)
 
 func increment_crystals():
+	$SFX/Pickup.play()
 	max_crystals += 1
 	crystals += 1
 	crystals_added += 1
 	emit_signal("crystals_increase", crystals, max_crystals)
 
 func heal(amount):
+	$SFX/Pickup.play()
 	health += amount
 	if health > max_health:
 		health = max_health

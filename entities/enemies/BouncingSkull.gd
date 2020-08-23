@@ -4,7 +4,7 @@ signal die
 
 export var damage := 2
 export var health := 3
-export var knockback_strength := 300
+export var knockback_strength := 100
 
 #var velocity := Vector2.ZERO
 var stunned := false

@@ -1,8 +1,8 @@
 extends Node
 
 export var bullet : PackedScene = preload("res://entities/BlueBullet.tscn")
-export var initial_pool_size := 128
-export var pool_grow_size := 32
+export var initial_pool_size := 258
+export var pool_grow_size := 64
 
 var unallocated := []
 var allocated := []

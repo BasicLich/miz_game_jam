@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://levels/Gateway.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://levels/FinalLevel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://music/penulatimate_level.ogg" type="AudioStream" id=9]
 [ext_resource path="res://entities/pickups/HeartPickup.tscn" type="PackedScene" id=10]
+[ext_resource path="res://entities/pickups/CrystalPickup.tscn" type="PackedScene" id=11]
 [ext_resource path="res://tilesets/platforms.tres" type="TileSet" id=13]
 [ext_resource path="res://tilesets/text.tres" type="TileSet" id=14]
 [ext_resource path="res://tilesets/special.tres" type="TileSet" id=15]
@@ -156,6 +157,15 @@ position = Vector2( 4785, -730 )
 
 [node name="HeartPickup" parent="Pickups" instance=ExtResource( 10 )]
 position = Vector2( 4231, -841 )
+
+[node name="HeartPickup2" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 4038, 201 )
+
+[node name="CrystalPickup" parent="Pickups" instance=ExtResource( 11 )]
+position = Vector2( 4536, 1048 )
+
+[node name="CrystalPickup2" parent="Pickups" instance=ExtResource( 11 )]
+position = Vector2( 3433, 1000 )
 
 [node name="PlayerSpawn" type="Position2D" parent="."]
 position = Vector2( 4423, 2693 )

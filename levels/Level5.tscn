@@ -62,13 +62,7 @@ tile_data = PoolIntArray( 3473502, 0, 3, 3473503, 0, 0, 3473504, 0, 65541, 34735
 position = Vector2( 1989.1, 313.729 )
 
 [node name="HeartPickup10" parent="Pickups" instance=ExtResource( 10 )]
-position = Vector2( 2260, 312.683 )
-
-[node name="HeartPickup11" parent="Pickups" instance=ExtResource( 10 )]
-position = Vector2( 2290.2, 312.683 )
-
-[node name="HeartPickup12" parent="Pickups" instance=ExtResource( 10 )]
-position = Vector2( 2275.1, 312.683 )
+position = Vector2( 1053, 1366 )
 
 [node name="Apples" type="Node2D" parent="Pickups"]
 
@@ -105,16 +99,7 @@ position = Vector2( 3894, 793 )
 position = Vector2( 1906.56, 1192.25 )
 
 [node name="CrystalPickup10" parent="Pickups/Crystals" instance=ExtResource( 9 )]
-position = Vector2( 2200.74, 312.683 )
-
-[node name="CrystalPickup11" parent="Pickups/Crystals" instance=ExtResource( 9 )]
-position = Vector2( 2244.99, 312.683 )
-
-[node name="CrystalPickup12" parent="Pickups/Crystals" instance=ExtResource( 9 )]
-position = Vector2( 2230.49, 312.683 )
-
-[node name="CrystalPickup13" parent="Pickups/Crystals" instance=ExtResource( 9 )]
-position = Vector2( 2214.99, 312.683 )
+position = Vector2( 1038, 1366 )
 
 [node name="Enemies" type="Node2D" parent="."]
 

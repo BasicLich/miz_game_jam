@@ -13,6 +13,9 @@ func _ready():
 	get_node("../AudioStreamPlayer").play()
 
 func _physics_process(_delta):
+	if Input.is_action_just_pressed("ui_home"):
+		get_tree().paused = !get_tree().paused
+	
 	if not game_running:
 		if Input.is_action_just_pressed("ui_accept"):
 			visible = false
@@ -27,5 +30,5 @@ func _physics_process(_delta):
 			visible = true
 			game_running = false
 			emit_signal("stop")
-			$AudioStreamPlayer.stream = title_music
-			$AudioStreamPlayer.play()
+			get_node("../AudioStreamPlayer").stream = title_music
+			get_node("../AudioStreamPlayer").play()

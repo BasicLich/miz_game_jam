@@ -26,6 +26,10 @@ func load_level(scene):
 		i.queue_free()
 	
 	level.connect("enemy_died", self, "__on_Level_enemy_died")
+	if level.has_signal("game_won"):
+		level.connect("game_won", self, "__on_Level_game_won")
+	if level.has_signal("play_music"):
+		level.connect("play_music", self, "__on_Level_play_music")
 	
 	$CurrentLevel.add_child(level)
 	player.global_position = level.player_spawn.global_position
@@ -34,8 +38,15 @@ func load_level(scene):
 	reset()	
 	player.call_deferred("spawn")
 
+func __on_Level_play_music(stream):
+	$AudioStreamPlayer.stream = stream
+	$AudioStreamPlayer.play()
+
+func __on_Level_game_won():
+	$AnimationPlayer.play("game_won")
+
 func _ready():
-	$HUD/MarginContainer.visible = false
+	$HUD/MarginContainer.modulate.a = 0.0
 	
 	player.connect("spawn", self, "__on_Player_spawn")
 	player.connect("death", self, "__on_Player_die")
@@ -92,8 +103,6 @@ func __on_Player_die():
 	call_deferred("restart")
 
 func __on_Player_spawn():
-	print("Level Music: " + str(level.music))
-	print("Current Music: " + str($AudioStreamPlayer.stream))
 	if not $AudioStreamPlayer.playing or $AudioStreamPlayer.stream != level.music:
 		$AudioStreamPlayer.stream = level.music
 		$AudioStreamPlayer.play()
@@ -128,19 +137,35 @@ func _on_MainMenu_start():
 	level_scene = first_level
 	load_level(first_level)
 	reset()
-	$HUD/MarginContainer.visible = true
+	$HUD/MarginContainer.modulate.a = 1.0
+	$CanvasModulate.modulate.a = 1.0
 
+func clear_level():
+	player.queue_free()
+	for child in $CurrentLevel.get_children():
+		child.queue_free()
 
 func _on_MainMenu_stop():
-	$HUD/MarginContainer.visible = false
+	$HUD/MarginContainer.modulate.a = 0.0
+	$CanvasModulate.modulate.a = 1.0
 	$AudioStreamPlayer.stop()
 	$AudioStreamPlayer.stream = null
+	$WinScreen.visible = false
 	
-	for level in $CurrentLevel.get_children():
-		$CurrentLevel.remove_child(level)
-		level.queue_free()
-	player.queue_free()
+	for lvl in $CurrentLevel.get_children():
+		$CurrentLevel.remove_child(lvl)
+		lvl.queue_free()
+	if player:
+		player.queue_free()
 	player = player_scene.instance()
+	
+	player.connect("spawn", self, "__on_Player_spawn")
+	player.connect("death", self, "__on_Player_die")
+	player.connect("hurt", self, "__on_Player_hurt")
+	player.connect("cast", self, "__on_Player_cast")
+	player.connect("health_increase", self, "__on_Player_health_increase")
+	player.connect("crystals_increase", self, "__on_Player_crystals_increase")
+	player.connect("change_level", self, "__on_Player_change_level")
 
 func __on_Player_change_level(new_level: PackedScene):
 	level_scene = new_level
