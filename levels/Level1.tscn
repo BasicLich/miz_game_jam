@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://music/level.ogg" type="AudioStream" id=1]
 [ext_resource path="res://levels/Gateway.tscn" type="PackedScene" id=2]
@@ -7,8 +7,9 @@
 [ext_resource path="res://entities/ai/PatrolAI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/enemies/Ghost.tscn" type="PackedScene" id=6]
 [ext_resource path="res://tilesets/GeneralTiles.gd" type="Script" id=7]
+[ext_resource path="res://levels/Level2.tscn" type="PackedScene" id=8]
 [ext_resource path="res://entities/pickups/CrystalPickup.tscn" type="PackedScene" id=9]
-[ext_resource path="res://levels/Level2.tscn" type="PackedScene" id=12]
+[ext_resource path="res://entities/pickups/HeartPickup.tscn" type="PackedScene" id=10]
 [ext_resource path="res://tilesets/platforms.tres" type="TileSet" id=13]
 [ext_resource path="res://tilesets/text.tres" type="TileSet" id=14]
 [ext_resource path="res://tilesets/special.tres" type="TileSet" id=15]
@@ -58,6 +59,72 @@ script = ExtResource( 16 )
 [node name="CrystalPickup" parent="Pickups/Crystals" instance=ExtResource( 9 )]
 position = Vector2( 496, 297 )
 
+[node name="CrystalPickup2" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="CrystalPickup3" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="CrystalPickup4" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="CrystalPickup5" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="CrystalPickup6" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="CrystalPickup7" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="CrystalPickup8" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="CrystalPickup9" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="CrystalPickup10" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="CrystalPickup11" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="CrystalPickup12" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="CrystalPickup13" parent="Pickups/Crystals" instance=ExtResource( 9 )]
+position = Vector2( 547.972, 600.956 )
+
+[node name="HeartPickup" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 531.702, 600.953 )
+
+[node name="HeartPickup2" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 531.702, 600.953 )
+
+[node name="HeartPickup3" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 531.702, 600.953 )
+
+[node name="HeartPickup4" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 531.702, 600.953 )
+
+[node name="HeartPickup5" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 531.702, 600.953 )
+
+[node name="HeartPickup6" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 531.702, 600.953 )
+
+[node name="HeartPickup7" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 531.702, 600.953 )
+
+[node name="HeartPickup8" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 531.702, 600.953 )
+
+[node name="HeartPickup9" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 531.702, 600.953 )
+
+[node name="HeartPickup10" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 531.702, 600.953 )
+
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Enemy" parent="Enemies" instance=ExtResource( 6 )]
@@ -75,5 +142,5 @@ position = Vector2( 146, 87 )
 
 [node name="Gateway" parent="." instance=ExtResource( 2 )]
 position = Vector2( 584, 585 )
-next_level = ExtResource( 12 )
+next_level = ExtResource( 8 )
 start_enabled = true

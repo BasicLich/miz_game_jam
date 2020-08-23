@@ -2,7 +2,7 @@
 
 [ext_resource path="res://levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://levels/Gateway.tscn" type="PackedScene" id=2]
-[ext_resource path="res://levels/PenultimateLevel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://levels/Level6.tscn" type="PackedScene" id=3]
 [ext_resource path="res://tilesets/general.tres" type="TileSet" id=4]
 [ext_resource path="res://entities/ai/PatrolAI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/enemies/Ghost.tscn" type="PackedScene" id=6]
